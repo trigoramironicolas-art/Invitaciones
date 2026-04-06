@@ -250,10 +250,133 @@
       flex-shrink: 0;
       color: var(--gold);
     }
+
+    /* ── Splash screen ─────────────────────────────── */
+    #splash {
+      position: fixed;
+      inset: 0;
+      background: var(--cream);
+      z-index: 10000;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 2rem;
+      transition: opacity 0.9s ease, visibility 0.9s ease;
+    }
+    #splash.hidden {
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+    }
+    body.splash-active {
+      overflow: hidden;
+    }
+    .splash-ornament {
+      width: 60px;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--gold), transparent);
+      margin: 0 auto;
+    }
+    @keyframes splashStar {
+      0%,100% { opacity: 0.2; transform: scale(0.8); }
+      50%      { opacity: 1;   transform: scale(1.2); }
+    }
+    .splash-star {
+      animation: splashStar 2.4s ease-in-out infinite;
+      color: var(--gold);
+    }
+    .splash-star:nth-child(2) { animation-delay: 0.4s; }
+    .splash-star:nth-child(3) { animation-delay: 0.8s; }
+
+    /* ── Sparkles canvas ───────────────────────────── */
+    #sparkle-canvas {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      z-index: 2;
+    }
+
+    /* ── Music button ──────────────────────────────── */
+    #music-btn {
+      position: fixed;
+      bottom: 24px;
+      right: 20px;
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      background: var(--cream);
+      border: 1px solid var(--sand);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      z-index: 9998;
+      color: var(--ink);
+      box-shadow: 0 2px 12px rgba(44,32,24,0.08);
+      transition: border-color 0.2s, color 0.2s;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.5s ease, border-color 0.2s, color 0.2s;
+    }
+    #music-btn.visible {
+      opacity: 1;
+      pointer-events: all;
+    }
+    #music-btn:hover { border-color: var(--gold); color: var(--gold); }
+    #music-btn.muted { color: var(--blush); border-color: var(--blush); }
   </style>
+  <!-- YouTube iFrame API -->
+  <script src="https://www.youtube.com/iframe_api"></script>
 </head>
 
-<body class="min-h-screen">
+<body class="min-h-screen splash-active">
+
+  <!-- ╔══════════════════════════════════════════╗ -->
+  <!-- ║  SPLASH SCREEN                           ║ -->
+  <!-- ╚══════════════════════════════════════════╝ -->
+  <div id="splash">
+    <div class="flex gap-3 mb-8">
+      <span class="splash-star" style="font-size:1rem;">✦</span>
+      <span class="splash-star" style="font-size:0.7rem;margin-top:4px;">✦</span>
+      <span class="splash-star" style="font-size:1rem;">✦</span>
+    </div>
+    <div style="width:90px;height:90px;border-radius:50%;overflow:hidden;border:1px solid var(--gold);margin-bottom:1.5rem;flex-shrink:0;">
+      <img src="https://i.postimg.cc/FKdGJW9d/2025-10-16-Magic-Kingdom-Park-Cinderella-castle-12.jpg"
+           alt="" style="width:100%;height:100%;object-fit:cover;object-position:center 15%;" />
+    </div>
+    <div class="splash-ornament mb-6"></div>
+    <p style="font-family:'Cormorant Garamond',serif;font-size:clamp(1.5rem,6vw,2rem);font-weight:300;font-style:italic;color:var(--ink);line-height:1.3;margin-bottom:0.5rem;">
+      Rami &amp; Clari
+    </p>
+    <p style="font-family:'Jost',sans-serif;font-size:0.72rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--blush);margin-bottom:2rem;">
+      Nuestra mayor aventura comienza ahora
+    </p>
+    <div class="splash-ornament mb-8"></div>
+    <button id="splash-btn" onclick="enterMagic()" class="btn-gold" style="gap:10px;">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+      Entrar a la magia
+    </button>
+    <p style="font-family:'Jost',sans-serif;font-size:0.6rem;letter-spacing:0.14em;text-transform:uppercase;color:var(--blush);opacity:0.6;margin-top:1.5rem;">
+      🔊 Con música
+    </p>
+  </div>
+
+  <!-- YouTube player oculto -->
+  <div id="yt-player" style="position:fixed;width:1px;height:1px;opacity:0;pointer-events:none;top:-9999px;left:-9999px;"></div>
+
+  <!-- Botón música flotante -->
+  <button id="music-btn" onclick="toggleMute()" aria-label="Silenciar música">
+    <svg id="icon-sound" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+      <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/>
+      <path d="M19.07 4.93a10 10 0 010 14.14M15.54 8.46a5 5 0 010 7.07"/>
+    </svg>
+    <svg id="icon-mute" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="display:none;">
+      <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/>
+      <line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/>
+    </svg>
+  </button>
 
   <!-- ╔══════════════════════════════════════════╗ -->
   <!-- ║  1. HERO                                 ║ -->
@@ -271,6 +394,7 @@
           alt="Clarisa & Ramiro"
           style="width:100%;height:100%;object-fit:cover;object-position:center 20%;display:block;"
         />
+        <canvas id="sparkle-canvas"></canvas>
       </div>
     </div>
 
@@ -608,57 +732,181 @@
     function updateCountdown() {
       const now  = new Date();
       const diff = weddingDate - now;
-
       if (diff <= 0) {
-        document.getElementById('cd-days').textContent  = '0';
-        document.getElementById('cd-hours').textContent = '0';
-        document.getElementById('cd-mins').textContent  = '0';
-        document.getElementById('cd-secs').textContent  = '0';
+        ['cd-days','cd-hours','cd-mins','cd-secs'].forEach(id => document.getElementById(id).textContent = '0');
         return;
       }
-
       const days  = Math.floor(diff / (1000 * 60 * 60 * 24));
       const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
       const mins  = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
       const secs  = Math.floor((diff % (1000 * 60)) / 1000);
-
       document.getElementById('cd-days').textContent  = String(days);
       document.getElementById('cd-hours').textContent = String(hours).padStart(2,'0');
       document.getElementById('cd-mins').textContent  = String(mins).padStart(2,'0');
       document.getElementById('cd-secs').textContent  = String(secs).padStart(2,'0');
     }
-
     updateCountdown();
     setInterval(updateCountdown, 1000);
 
     // ── ICS download ───────────────────────────────
     function downloadICS() {
       const ics = [
-        'BEGIN:VCALENDAR',
-        'VERSION:2.0',
+        'BEGIN:VCALENDAR','VERSION:2.0',
         'PRODID:-//Clarisa & Ramiro//Wedding//ES',
         'BEGIN:VEVENT',
         'UID:clarisa-ramiro-boda-2026@wedding',
         'DTSTAMP:20260101T000000Z',
         'DTSTART;TZID=America/Argentina/Buenos_Aires:20261127T180000',
-        'DTEND;TZID=America/Argentina/Buenos_Aires:20261128T040000',
+        'DTEND;TZID=America/Argentina/Buenos_Aires:20261128T050000',
         'SUMMARY:💍 Boda de Clarisa & Ramiro',
-        'DESCRIPTION:¡Nos casamos! Te esperamos para compartir este día tan especial.\\n\\nCeremonia: 18:00 hs — Basílica de San Carlos\\nFiesta: 21:00 hs — Estilo Coghlan',
+        'DESCRIPTION:¡Nos casamos!\\n\\nCeremonia: 18:00 hs — Basílica de San Carlos\\nFiesta: 21:00 hs — Estilo Coghlan',
         'LOCATION:Basílica de San Carlos\\, Buenos Aires\\, Argentina',
-        'STATUS:CONFIRMED',
-        'END:VEVENT',
-        'END:VCALENDAR'
+        'STATUS:CONFIRMED','END:VEVENT','END:VCALENDAR'
       ].join('\r\n');
-
       const blob = new Blob([ics], { type: 'text/calendar;charset=utf-8' });
       const url  = URL.createObjectURL(blob);
       const a    = document.createElement('a');
-      a.href     = url;
-      a.download = 'boda-clarisa-ramiro.ics';
-      document.body.appendChild(a);
-      a.click();
-      document.body.removeChild(a);
-      URL.revokeObjectURL(url);
+      a.href = url; a.download = 'boda-clarisa-ramiro.ics';
+      document.body.appendChild(a); a.click();
+      document.body.removeChild(a); URL.revokeObjectURL(url);
+    }
+
+    // ── YouTube player ─────────────────────────────
+    // Video ID: InBWYeqec_w (Bajo el Mar instrumental)
+    let ytPlayer = null;
+    let isMuted  = false;
+    let ytReady  = false;
+
+    function onYouTubeIframeAPIReady() {
+      ytPlayer = new YT.Player('yt-player', {
+        videoId: 'InBWYeqec_w',
+        playerVars: {
+          autoplay: 0,
+          controls: 0,
+          loop: 1,
+          playlist: 'InBWYeqec_w',
+          mute: 0,
+          playsinline: 1,
+        },
+        events: {
+          onReady: () => { ytReady = true; }
+        }
+      });
+    }
+
+    // ── Splash enter ───────────────────────────────
+    function enterMagic() {
+      const splash = document.getElementById('splash');
+      splash.classList.add('hidden');
+      document.body.classList.remove('splash-active');
+
+      // play music
+      if (ytReady && ytPlayer) {
+        ytPlayer.playVideo();
+        ytPlayer.setVolume(60);
+      } else {
+        // retry a bit later (API might still be loading)
+        setTimeout(() => {
+          if (ytPlayer) { ytPlayer.playVideo(); ytPlayer.setVolume(60); }
+        }, 1500);
+      }
+
+      // show music button
+      setTimeout(() => {
+        document.getElementById('music-btn').classList.add('visible');
+      }, 1000);
+
+      // start sparkles
+      initSparkles();
+    }
+
+    // ── Mute toggle ────────────────────────────────
+    function toggleMute() {
+      if (!ytPlayer) return;
+      isMuted = !isMuted;
+      isMuted ? ytPlayer.mute() : ytPlayer.unMute();
+      document.getElementById('icon-sound').style.display = isMuted ? 'none'  : '';
+      document.getElementById('icon-mute').style.display  = isMuted ? ''      : 'none';
+      document.getElementById('music-btn').classList.toggle('muted', isMuted);
+    }
+
+    // ── Sparkles ───────────────────────────────────
+    function initSparkles() {
+      const canvas = document.getElementById('sparkle-canvas');
+      if (!canvas) return;
+      const parent = canvas.parentElement;
+      const rect   = parent.getBoundingClientRect();
+      canvas.width  = rect.width;
+      canvas.height = rect.height;
+
+      const ctx = canvas.getContext('2d');
+      const particles = [];
+      const COLORS = ['#C9A96E','#FAF7F2','#E8DDD0','#ffffff'];
+
+      function randBetween(a, b) { return a + Math.random() * (b - a); }
+
+      function createParticle() {
+        return {
+          x:       randBetween(0, canvas.width),
+          y:       randBetween(0, canvas.height),
+          r:       randBetween(1, 2.8),
+          alpha:   0,
+          maxAlpha:randBetween(0.5, 0.95),
+          speed:   randBetween(0.008, 0.022),
+          phase:   randBetween(0, Math.PI * 2),
+          color:   COLORS[Math.floor(Math.random() * COLORS.length)],
+        };
+      }
+
+      for (let i = 0; i < 28; i++) {
+        const p = createParticle();
+        p.phase = randBetween(0, Math.PI * 2); // stagger
+        particles.push(p);
+      }
+
+      let frame;
+      function draw() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        particles.forEach(p => {
+          p.phase += p.speed;
+          p.alpha  = p.maxAlpha * (0.5 + 0.5 * Math.sin(p.phase));
+
+          // reset position occasionally for variety
+          if (p.phase > Math.PI * 2 * randBetween(2, 5)) {
+            Object.assign(p, createParticle());
+          }
+
+          ctx.save();
+          ctx.globalAlpha = p.alpha;
+          ctx.fillStyle   = p.color;
+          ctx.shadowColor = '#C9A96E';
+          ctx.shadowBlur  = 6;
+
+          // draw 4-point star
+          const s = p.r;
+          ctx.beginPath();
+          ctx.moveTo(p.x,     p.y - s * 2.5);
+          ctx.lineTo(p.x + s * 0.5, p.y - s * 0.5);
+          ctx.lineTo(p.x + s * 2.5, p.y);
+          ctx.lineTo(p.x + s * 0.5, p.y + s * 0.5);
+          ctx.lineTo(p.x,     p.y + s * 2.5);
+          ctx.lineTo(p.x - s * 0.5, p.y + s * 0.5);
+          ctx.lineTo(p.x - s * 2.5, p.y);
+          ctx.lineTo(p.x - s * 0.5, p.y - s * 0.5);
+          ctx.closePath();
+          ctx.fill();
+          ctx.restore();
+        });
+        frame = requestAnimationFrame(draw);
+      }
+      draw();
+
+      // resize handler
+      window.addEventListener('resize', () => {
+        const r2 = parent.getBoundingClientRect();
+        canvas.width  = r2.width;
+        canvas.height = r2.height;
+      });
     }
   </script>
 
