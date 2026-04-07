@@ -4,44 +4,65 @@
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Clarisa & Ramiro — 27.11.2026</title>
+
   <link rel="preconnect" href="https://fonts.googleapis.com"/>
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Jost:wght@200;300;400;500&display=swap" rel="stylesheet"/>
+
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="https://unpkg.com/aos@2.3.1/dist/aos.css"/>
   <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
   <script src="https://www.youtube.com/iframe_api"></script>
+
   <script>
     tailwind.config = {
       theme: { extend: {
-        colors: { peach:'#FFB07C', fuschia:'#D1105A', burnt:'#E65A28', olive:'#4A5D23', copper:'#C07850', cream:'#FFF8F0', ink:'#2A1A0E' },
-        fontFamily: { serif:['"Cormorant Garamond"','Georgia','serif'], sans:['Jost','sans-serif'] }
+        colors: {
+          peach:'#FFB07C', fuschia:'#D1105A', burnt:'#E65A28',
+          olive:'#4A5D23', copper:'#C07850', cream:'#FFF8F0', ink:'#2A1A0E'
+        },
+        fontFamily: {
+          serif:['"Cormorant Garamond"','Georgia','serif'],
+          sans:['Jost','sans-serif']
+        }
       }}
     }
   </script>
+
   <style>
+    /* ── Variables ── */
     :root {
-      --peach:#FFB07C; --fuschia:#D1105A; --burnt:#E65A28;
-      --olive:#4A5D23; --copper:#C07850; --cream:#FFF8F0;
-      --sand:#F5E6D3;  --ink:#2A1A0E;   --gold:#C9A96E;
+      --peach:  #FFB07C;
+      --fuschia:#D1105A;
+      --burnt:  #E65A28;
+      --olive:  #4A5D23;
+      --copper: #C07850;
+      --cream:  #FFF8F0;
+      --ink:    #2A1A0E;
+      --gold:   #C9A96E;
     }
+
     *, *::before, *::after { box-sizing:border-box; }
     html { scroll-behavior:smooth; }
 
     body {
       background: linear-gradient(160deg,#FFF8F0 0%,#FFE8CC 35%,#FFD8A8 65%,#FFF0E0 100%);
-      color:var(--ink); font-family:'Jost',sans-serif;
-      font-weight:300; letter-spacing:.01em; overflow-x:hidden; min-height:100vh;
+      color:var(--ink);
+      font-family:'Jost',sans-serif;
+      font-weight:300;
+      letter-spacing:.01em;
+      overflow-x:hidden;
+      min-height:100vh;
     }
 
-    /* ── grain ── */
+    /* ── Grain texture ── */
     body::before {
       content:''; position:fixed; inset:0; pointer-events:none; z-index:9998;
       background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.68' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
       opacity:.055;
     }
 
-    /* ── HERO fullscreen ── */
+    /* ── Hero ── */
     #hero {
       position:relative; width:100vw; height:75vh; min-height:480px;
       overflow:hidden; display:flex; align-items:flex-end; justify-content:center;
@@ -50,202 +71,90 @@
       position:absolute; inset:0; width:100%; height:100%;
       object-fit:cover; object-position:center 20%; z-index:0;
     }
-    /* overlay gradient bottom for text legibility */
     #hero-overlay {
       position:absolute; inset:0; z-index:1;
-      background: linear-gradient(
-        to bottom,
-        rgba(42,26,14,0.08) 0%,
-        rgba(42,26,14,0.10) 40%,
-        rgba(42,26,14,0.62) 75%,
-        rgba(42,26,14,0.82) 100%
-      );
+      background:linear-gradient(to bottom,
+        rgba(42,26,14,.08) 0%, rgba(42,26,14,.10) 40%,
+        rgba(42,26,14,.62) 75%, rgba(42,26,14,.82) 100%);
     }
     #hero-content {
       position:relative; z-index:3; text-align:center;
       padding:0 1.5rem 3.5rem; width:100%; max-width:600px;
     }
-    /* sparkle canvas over hero */
     #sparkle-canvas {
       position:absolute; inset:0; z-index:2; pointer-events:none;
     }
 
-    /* ── leaf corners — sway animation ── */
+    /* ── Leaf corners with sway ── */
     .leaf-corner { position:absolute; pointer-events:none; z-index:4; }
     @keyframes sway {
-      0%,100% { transform: rotate(0deg) scale(1); }
-      33%      { transform: rotate(2.5deg) scale(1.02); }
-      66%      { transform: rotate(-2deg) scale(0.99); }
+      0%,100% { transform:rotate(0deg) scale(1); }
+      33%     { transform:rotate(2.5deg) scale(1.02); }
+      66%     { transform:rotate(-2deg) scale(.99); }
     }
     @keyframes swayR {
-      0%,100% { transform: scaleX(-1) rotate(0deg) scale(1); }
-      33%      { transform: scaleX(-1) rotate(-2.5deg) scale(1.02); }
-      66%      { transform: scaleX(-1) rotate(2deg) scale(0.99); }
+      0%,100% { transform:scaleX(-1) rotate(0deg) scale(1); }
+      33%     { transform:scaleX(-1) rotate(-2.5deg) scale(1.02); }
+      66%     { transform:scaleX(-1) rotate(2deg) scale(.99); }
     }
-    .leaf-tl { animation: sway  9s ease-in-out infinite; transform-origin: top left; }
-    .leaf-tr { animation: swayR 9s ease-in-out infinite 0.8s; transform-origin: top right; }
-    .leaf-bl { animation: sway  11s ease-in-out infinite 1.5s; transform-origin: bottom left; }
-    .leaf-br { animation: swayR 11s ease-in-out infinite 2.3s; transform-origin: bottom right; }
+    .leaf-tl { animation:sway  9s ease-in-out infinite;       transform-origin:top left; }
+    .leaf-tr { animation:swayR 9s ease-in-out infinite .8s;   transform-origin:top right; }
+    .leaf-bl { animation:sway  11s ease-in-out infinite 1.5s; transform-origin:bottom left; }
+    .leaf-br { animation:swayR 11s ease-in-out infinite 2.3s; transform-origin:bottom right; }
 
-    /* ── embossed names ── */
+    /* ── Gold embossed names ── */
     .name-embossed {
-      background: linear-gradient(135deg,#e0a840 0%,#f8e080 28%,#b86820 52%,#f0c050 72%,#ffe090 100%);
+      background:linear-gradient(135deg,#e0a840 0%,#f8e080 28%,#b86820 52%,#f0c050 72%,#ffe090 100%);
       -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text;
       filter:drop-shadow(0 2px 6px rgba(80,30,0,.45));
     }
 
-    /* ── botanical divider ── */
+    /* ── Cards ── */
+    .card-tropical {
+      background:rgba(255,248,240,.88);
+      border:1px solid rgba(192,120,80,.22);
+      border-radius:3px;
+      backdrop-filter:blur(10px);
+    }
+    .card-accent { height:3px; border-radius:2px; margin-bottom:1.5rem; }
+
+    /* ── Botanical divider ── */
     .botanical-divider {
       display:flex; align-items:center; gap:12px; justify-content:center; color:var(--olive);
     }
-    .botanical-divider::before,.botanical-divider::after {
+    .botanical-divider::before, .botanical-divider::after {
       content:''; display:block; height:1px; width:48px;
       background:linear-gradient(90deg,transparent,var(--olive));
     }
     .botanical-divider::after { background:linear-gradient(270deg,transparent,var(--olive)); }
 
-    /* ── hidden mickey divider ── */
-    .mickey-divider {
-      display:flex; align-items:flex-end; justify-content:center; gap:0;
-      margin:0 auto;
+    /* ── Mickey ── */
+    .mickey-icon {
+      display:flex; align-items:flex-start; justify-content:center; gap:0;
     }
-    .mickey-divider .m-ear {
-      width:13px; height:13px; border-radius:50%;
-      border:1.5px solid var(--gold); background:transparent;
-      margin-bottom:-4px;
+    .mickey-icon .m-ear {
+      width:15px; height:15px; border-radius:50%;
+      border:2px solid var(--gold); background:rgba(201,169,110,.08);
+      margin-top:-5px; box-shadow:0 0 6px rgba(201,169,110,.3);
     }
-    .mickey-divider .m-head {
-      width:20px; height:20px; border-radius:50%;
-      border:1.5px solid var(--gold); background:transparent;
-      margin:0 -3px;
+    .mickey-icon .m-head {
+      width:24px; height:24px; border-radius:50%;
+      border:2px solid var(--gold); background:rgba(201,169,110,.08);
+      margin:0 -4px; box-shadow:0 0 8px rgba(201,169,110,.35);
     }
-
-    /* ── cards ── */
-    .card-tropical {
-      background:rgba(255,248,240,.88);
-      border:1px solid rgba(192,120,80,.22);
-      border-radius:3px; backdrop-filter:blur(10px);
-      position:relative;
+    .mickey-section {
+      display:flex; flex-direction:column; align-items:center; gap:6px; padding:16px 0;
     }
-    .card-accent { height:3px; border-radius:2px; margin-bottom:1.5rem; }
-
-    /* ── countdown ── */
-    .countdown-num {
-      font-family:'Cormorant Garamond',serif;
-      font-size:clamp(2.8rem,9vw,4.5rem);
-      font-weight:300; line-height:1; color:var(--ink);
-    }
-    .countdown-label {
-      font-family:'Jost',sans-serif; font-size:.6rem;
-      font-weight:400; letter-spacing:.2em; text-transform:uppercase; color:var(--olive);
+    .mickey-label {
+      font-family:'Jost',sans-serif; font-size:.52rem;
+      letter-spacing:.22em; text-transform:uppercase; color:var(--gold); opacity:.7;
     }
 
-    /* ── LUXURY BUTTONS ── */
-    .btn-luxury {
-      display:inline-flex; align-items:center; gap:9px;
-      font-family:'Jost',sans-serif; font-size:.68rem; font-weight:400;
-      letter-spacing:.2em; text-transform:uppercase;
-      color:#fff; padding:15px 32px;
-      background:linear-gradient(110deg,var(--burnt) 0%,var(--fuschia) 100%);
-      border:none; border-radius:1px; cursor:pointer; text-decoration:none;
-      position:relative; overflow:hidden;
-      box-shadow:0 4px 20px rgba(209,16,90,.25);
-      transition:box-shadow .3s, transform .2s;
-    }
-    .btn-luxury::before {
-      content:''; position:absolute; inset:0;
-      background:linear-gradient(110deg,var(--fuschia) 0%,var(--burnt) 50%,#e8c060 100%);
-      opacity:0; transition:opacity .35s;
-    }
-    .btn-luxury:hover::before { opacity:1; }
-    .btn-luxury:hover {
-      box-shadow:0 6px 28px rgba(209,16,90,.45), 0 0 0 1px rgba(200,160,80,.4);
-      transform:translateY(-1px);
-    }
-    .btn-luxury span { position:relative; z-index:1; }
-    .btn-luxury svg  { position:relative; z-index:1; flex-shrink:0; }
-
-    .btn-olive {
-      display:inline-flex; align-items:center; gap:8px;
-      font-family:'Jost',sans-serif; font-size:.68rem; font-weight:400;
-      letter-spacing:.18em; text-transform:uppercase;
-      color:var(--olive); border:1.5px solid var(--olive);
-      padding:12px 24px; background:transparent;
-      cursor:pointer; text-decoration:none; border-radius:1px;
-      transition:all .3s; position:relative; overflow:hidden;
-    }
-    .btn-olive::before {
-      content:''; position:absolute; inset:0;
-      background:linear-gradient(110deg,var(--olive),#6a9a30);
-      transform:translateX(-100%); transition:transform .35s;
-    }
-    .btn-olive:hover::before { transform:translateX(0); }
-    .btn-olive:hover { color:#fff; border-color:var(--olive); }
-    .btn-olive span,.btn-olive svg { position:relative; z-index:1; }
-
-    .btn-burnt {
-      display:inline-flex; align-items:center; gap:8px;
-      font-family:'Jost',sans-serif; font-size:.68rem; font-weight:400;
-      letter-spacing:.18em; text-transform:uppercase;
-      color:var(--burnt); border:1.5px solid var(--burnt);
-      padding:12px 24px; background:transparent;
-      cursor:pointer; text-decoration:none; border-radius:1px;
-      transition:all .3s; position:relative; overflow:hidden;
-    }
-    .btn-burnt::before {
-      content:''; position:absolute; inset:0;
-      background:linear-gradient(110deg,var(--burnt),var(--fuschia));
-      transform:translateX(-100%); transition:transform .35s;
-    }
-    .btn-burnt:hover::before { transform:translateX(0); }
-    .btn-burnt:hover { color:#fff; border-color:var(--fuschia); }
-    .btn-burnt span,.btn-burnt svg { position:relative; z-index:1; }
-
-    /* ── misc ── */
-    .swatch { width:36px; height:36px; border-radius:50%; border:1px solid rgba(0,0,0,.08); flex-shrink:0; }
-    hr.thin { border:none; border-top:1px solid rgba(74,93,35,.15); }
-    .section-label { font-family:'Jost',sans-serif; font-size:.6rem; letter-spacing:.26em; text-transform:uppercase; color:var(--olive); }
-    .icon-circle { width:44px; height:44px; border-radius:50%; border:1px solid rgba(74,93,35,.25); display:flex; align-items:center; justify-content:center; flex-shrink:0; color:var(--olive); }
-
-    /* ── animations ── */
-    @keyframes fadeUp { from{opacity:0;transform:translateY(24px);}to{opacity:1;transform:translateY(0);} }
-    .fade-up{animation:fadeUp 1.1s ease both;}
-    .delay-1{animation-delay:.2s;}.delay-2{animation-delay:.5s;}
-    .delay-3{animation-delay:.8s;}.delay-4{animation-delay:1.1s;}
-
-    /* ── splash ── */
-    #splash {
-      position:fixed; inset:0;
-      background:linear-gradient(160deg,#FFF8F0 0%,#FFE8CC 50%,#FFD4A8 100%);
-      z-index:10000; display:flex; flex-direction:column;
-      align-items:center; justify-content:center; text-align:center; padding:2rem;
-      transition:opacity .9s ease, visibility .9s ease;
-    }
-    #splash.hidden{opacity:0;visibility:hidden;pointer-events:none;}
-    body.splash-active{overflow:hidden;}
-    .splash-line{width:60px;height:1px;background:linear-gradient(90deg,transparent,var(--copper),transparent);margin:0 auto;}
-    @keyframes splashStar{0%,100%{opacity:.3;transform:scale(.8);}50%{opacity:1;transform:scale(1.3);}}
-    .splash-star{animation:splashStar 2.2s ease-in-out infinite;}
-    .splash-star:nth-child(2){animation-delay:.35s;}.splash-star:nth-child(3){animation-delay:.7s;}
-
-    /* ── music btn ── */
-    #music-btn {
-      position:fixed; bottom:24px; right:20px; width:42px; height:42px;
-      border-radius:50%; background:var(--cream); border:1.5px solid var(--olive);
-      display:flex; align-items:center; justify-content:center;
-      cursor:pointer; z-index:9997; color:var(--olive);
-      box-shadow:0 2px 12px rgba(74,93,35,.15);
-      opacity:0; pointer-events:none; transition:opacity .5s ease, background .2s, color .2s;
-    }
-    #music-btn.visible{opacity:1;pointer-events:all;}
-    #music-btn:hover{background:var(--olive);color:#fff;}
-    #music-btn.muted{color:var(--fuschia);border-color:var(--fuschia);}
-
-    /* ── flowers ── */
+    /* ── Flowers ── */
     @keyframes floatA {
       0%,100%{ transform:translateY(0) rotate(0deg) scale(1); }
       40%    { transform:translateY(-8px) rotate(4deg) scale(1.04); }
-      70%    { transform:translateY(-4px) rotate(-3deg) scale(0.97); }
+      70%    { transform:translateY(-4px) rotate(-3deg) scale(.97); }
     }
     @keyframes floatB {
       0%,100%{ transform:translateY(0) rotate(0deg) scale(1); }
@@ -256,76 +165,179 @@
       0%,100%{ transform:translateY(0) rotate(0deg); }
       50%    { transform:translateY(-12px) rotate(6deg); }
     }
-    .flower-a { animation: floatA 7s ease-in-out infinite; }
-    .flower-b { animation: floatB 9s ease-in-out infinite 1.2s; }
-    .flower-c { animation: floatC 11s ease-in-out infinite 2.5s; }
-
-    /* section flower strip */
+    .flower-a { animation:floatA 7s ease-in-out infinite; }
+    .flower-b { animation:floatB 9s ease-in-out infinite 1.2s; }
+    .flower-c { animation:floatC 11s ease-in-out infinite 2.5s; }
     .flower-strip {
       display:flex; align-items:center; justify-content:center;
       gap:8px; padding:8px 0; overflow:hidden;
     }
 
-    /* ── mickey visible ── */
-    .mickey-section {
-      display:flex; flex-direction:column; align-items:center; gap:6px;
-      padding:16px 0;
+    /* ── Countdown ── */
+    .cd-num {
+      font-family:'Cormorant Garamond',serif;
+      font-size:clamp(2.4rem,8vw,3.8rem);
+      font-weight:300; line-height:1; color:#fff;
     }
-    .mickey-icon {
-      display:flex; align-items:flex-start; justify-content:center; gap:0;
+    .cd-label {
+      font-family:'Jost',sans-serif; font-size:.55rem;
+      letter-spacing:.2em; text-transform:uppercase; color:rgba(200,220,160,.85);
     }
-    .mickey-icon .m-ear {
-      width:15px; height:15px; border-radius:50%;
-      border:2px solid var(--gold);
-      background:rgba(201,169,110,.08);
-      margin-top:-5px;
-      box-shadow:0 0 6px rgba(201,169,110,.3);
+
+    /* ── Buttons ── */
+    .btn-luxury {
+      display:inline-flex; align-items:center; gap:9px;
+      font-family:'Jost',sans-serif; font-size:.68rem; font-weight:400;
+      letter-spacing:.2em; text-transform:uppercase; color:#fff;
+      padding:15px 32px;
+      background:linear-gradient(110deg,var(--burnt) 0%,var(--fuschia) 100%);
+      border:none; border-radius:1px; cursor:pointer; text-decoration:none;
+      position:relative; overflow:hidden;
+      box-shadow:0 4px 20px rgba(209,16,90,.25);
+      transition:box-shadow .3s, transform .2s;
     }
-    .mickey-icon .m-head {
-      width:24px; height:24px; border-radius:50%;
-      border:2px solid var(--gold);
-      background:rgba(201,169,110,.08);
-      margin:0 -4px;
-      box-shadow:0 0 8px rgba(201,169,110,.35);
+    .btn-luxury::before {
+      content:''; position:absolute; inset:0; opacity:0;
+      background:linear-gradient(110deg,var(--fuschia) 0%,var(--burnt) 50%,#e8c060 100%);
+      transition:opacity .35s;
     }
-    .mickey-label {
-      font-family:'Jost',sans-serif; font-size:.52rem;
-      letter-spacing:.22em; text-transform:uppercase;
-      color:var(--gold); opacity:.7;
+    .btn-luxury:hover::before { opacity:1; }
+    .btn-luxury:hover {
+      box-shadow:0 6px 28px rgba(209,16,90,.45), 0 0 0 1px rgba(200,160,80,.4);
+      transform:translateY(-1px);
     }
+    .btn-luxury > * { position:relative; z-index:1; flex-shrink:0; }
+
+    .btn-olive {
+      display:inline-flex; align-items:center; gap:8px;
+      font-family:'Jost',sans-serif; font-size:.68rem; font-weight:400;
+      letter-spacing:.18em; text-transform:uppercase;
+      color:var(--olive); border:1.5px solid var(--olive);
+      padding:12px 24px; background:transparent;
+      cursor:pointer; text-decoration:none; border-radius:1px;
+      position:relative; overflow:hidden; transition:color .3s, border-color .3s;
+    }
+    .btn-olive::before {
+      content:''; position:absolute; inset:0;
+      background:linear-gradient(110deg,var(--olive),#6a9a30);
+      transform:translateX(-100%); transition:transform .35s;
+    }
+    .btn-olive:hover::before { transform:translateX(0); }
+    .btn-olive:hover { color:#fff; }
+    .btn-olive > * { position:relative; z-index:1; }
+
+    .btn-burnt {
+      display:inline-flex; align-items:center; gap:8px;
+      font-family:'Jost',sans-serif; font-size:.68rem; font-weight:400;
+      letter-spacing:.18em; text-transform:uppercase;
+      color:var(--burnt); border:1.5px solid var(--burnt);
+      padding:12px 24px; background:transparent;
+      cursor:pointer; text-decoration:none; border-radius:1px;
+      position:relative; overflow:hidden; transition:color .3s, border-color .3s;
+    }
+    .btn-burnt::before {
+      content:''; position:absolute; inset:0;
+      background:linear-gradient(110deg,var(--burnt),var(--fuschia));
+      transform:translateX(-100%); transition:transform .35s;
+    }
+    .btn-burnt:hover::before { transform:translateX(0); }
+    .btn-burnt:hover { color:#fff; border-color:var(--fuschia); }
+    .btn-burnt > * { position:relative; z-index:1; }
+
+    /* ── Misc ── */
+    .swatch { width:36px; height:36px; border-radius:50%; border:1px solid rgba(0,0,0,.08); flex-shrink:0; }
+    hr.thin { border:none; border-top:1px solid rgba(74,93,35,.15); }
+    .section-label { font-family:'Jost',sans-serif; font-size:.6rem; letter-spacing:.26em; text-transform:uppercase; color:var(--olive); }
+    .icon-circle { width:44px; height:44px; border-radius:50%; border:1px solid rgba(74,93,35,.25); display:flex; align-items:center; justify-content:center; flex-shrink:0; color:var(--olive); }
+
+    /* ── Entry animations ── */
+    @keyframes fadeUp { from{opacity:0;transform:translateY(24px);}to{opacity:1;transform:translateY(0);} }
+    .fade-up { animation:fadeUp 1.1s ease both; }
+    .delay-1 { animation-delay:.2s; }
+    .delay-2 { animation-delay:.5s; }
+    .delay-3 { animation-delay:.8s; }
+    .delay-4 { animation-delay:1.1s; }
+
+    /* ── Splash ── */
+    #splash {
+      position:fixed; inset:0; z-index:10000;
+      background:linear-gradient(160deg,#FFF8F0 0%,#FFE8CC 50%,#FFD4A8 100%);
+      display:flex; flex-direction:column; align-items:center;
+      justify-content:center; text-align:center; padding:2rem;
+      transition:opacity .9s ease, visibility .9s ease;
+    }
+    #splash.hidden { opacity:0; visibility:hidden; pointer-events:none; }
+    body.splash-active { overflow:hidden; }
+    .splash-line {
+      width:60px; height:1px; margin:0 auto;
+      background:linear-gradient(90deg,transparent,var(--copper),transparent);
+    }
+
+    /* ── Music button ── */
+    #music-btn {
+      position:fixed; bottom:24px; right:20px;
+      width:42px; height:42px; border-radius:50%;
+      background:var(--cream); border:1.5px solid var(--olive);
+      display:flex; align-items:center; justify-content:center;
+      cursor:pointer; z-index:9997; color:var(--olive);
+      box-shadow:0 2px 12px rgba(74,93,35,.15);
+      opacity:0; pointer-events:none;
+      transition:opacity .5s ease, background .2s, color .2s;
+    }
+    #music-btn.visible { opacity:1; pointer-events:all; }
+    #music-btn:hover   { background:var(--olive); color:#fff; }
+    #music-btn.muted   { color:var(--fuschia); border-color:var(--fuschia); }
   </style>
 </head>
 
 <body class="splash-active">
 
-  <!-- ── SPLASH ── -->
+  <!-- ════════════════════════════════════ -->
+  <!-- SPLASH                              -->
+  <!-- ════════════════════════════════════ -->
   <div id="splash">
-    <div class="flex gap-3 mb-7">
-      <div class="mickey-icon"><div class="m-ear"></div><div class="m-head"></div><div class="m-ear"></div></div>
+    <div class="mickey-icon mb-7">
+      <div class="m-ear"></div><div class="m-head"></div><div class="m-ear"></div>
     </div>
-    <div style="width:140px;height:140px;border-radius:50%;overflow:hidden;border:1px solid var(--gold);margin-bottom:1.5rem;box-shadow:0 0 0 4px rgba(201,169,110,.15), 0 4px 24px rgba(192,120,80,.18);">
+
+    <div style="width:140px;height:140px;border-radius:50%;overflow:hidden;
+                border:1px solid var(--gold);margin-bottom:1.5rem;
+                box-shadow:0 0 0 4px rgba(201,169,110,.15),0 4px 24px rgba(192,120,80,.18);">
       <img src="https://i.postimg.cc/XYFKz9dS/2025-10-19-Disneys-Animal-Kingdom-Park-Disneys-animal-kingdom-theme-park-2-(1).jpg"
-           alt="" style="width:100%;height:100%;object-fit:cover;object-position:center center;"/>
+           alt="Rami & Clari"
+           style="width:100%;height:100%;object-fit:cover;object-position:center;"/>
     </div>
+
     <div class="splash-line mb-6"></div>
-    <p style="font-family:'Cormorant Garamond',serif;font-size:clamp(1.6rem,6vw,2.1rem);font-weight:300;font-style:italic;color:var(--ink);line-height:1.2;margin-bottom:.4rem;">
+
+    <p style="font-family:'Cormorant Garamond',serif;font-size:clamp(1.6rem,6vw,2.1rem);
+              font-weight:300;font-style:italic;color:var(--ink);line-height:1.2;margin-bottom:.4rem;">
       Rami &amp; Clari
     </p>
-    <p style="font-family:'Jost',sans-serif;font-size:.68rem;letter-spacing:.22em;text-transform:uppercase;color:#4A5D23;font-weight:300;margin-bottom:2rem;">
+    <p style="font-family:'Jost',sans-serif;font-size:.68rem;letter-spacing:.22em;
+              text-transform:uppercase;color:var(--olive);font-weight:300;margin-bottom:2rem;">
       Nuestra mayor aventura comienza ahora
     </p>
+
     <div class="splash-line mb-8"></div>
+
     <button onclick="enterMagic()" class="btn-luxury">
-      <svg width="14" height="14" viewBox="0 0 14 14" fill="none" style="position:relative;z-index:1;flex-shrink:0;">
+      <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
         <path d="M7 1L8.3 4.8H12.3L9.1 7.1L10.3 11L7 8.7L3.7 11L4.9 7.1L1.7 4.8H5.7Z" fill="#C9A96E"/>
       </svg>
       <span>Sé nuestro invitado</span>
     </button>
-    <p style="font-family:'Jost',sans-serif;font-size:.6rem;letter-spacing:.14em;text-transform:uppercase;color:var(--copper);opacity:.7;margin-top:1.5rem;">🔊 Con música</p>
+
+    <p style="font-family:'Jost',sans-serif;font-size:.6rem;letter-spacing:.14em;
+              text-transform:uppercase;color:var(--copper);opacity:.7;margin-top:1.5rem;">
+      🔊 Con música
+    </p>
   </div>
 
+  <!-- YouTube hidden player -->
   <div id="yt-player" style="position:fixed;width:1px;height:1px;opacity:0;pointer-events:none;top:-9999px;left:-9999px;"></div>
 
+  <!-- Music toggle button -->
   <button id="music-btn" onclick="toggleMute()" aria-label="Silenciar música">
     <svg id="icon-sound" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
       <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/>
@@ -337,20 +349,20 @@
     </svg>
   </button>
 
-  <!-- ══════════════════════════════════════ -->
-  <!-- 1. HERO — fullscreen                  -->
-  <!-- ══════════════════════════════════════ -->
+  <!-- ════════════════════════════════════ -->
+  <!-- 1. HERO                             -->
+  <!-- ════════════════════════════════════ -->
   <section id="hero">
     <img id="hero-img"
          src="https://i.postimg.cc/FKdGJW9d/2025-10-16-Magic-Kingdom-Park-Cinderella-castle-12.jpg"
          alt="Clarisa & Ramiro"/>
     <div id="hero-overlay"></div>
-    <canvas id="sparkle-canvas" style="position:absolute;inset:0;z-index:2;pointer-events:none;"></canvas>
+    <canvas id="sparkle-canvas"></canvas>
 
-    <!-- leaf TL -->
+    <!-- Animated leaf corners -->
     <svg class="leaf-corner leaf-tl" style="top:-6px;left:-6px;width:190px;opacity:.28;" viewBox="0 0 190 190" fill="none">
-      <path d="M16 174 C16 94, 94 16, 174 16 C140 60, 72 118, 16 174Z" fill="#4A5D23"/>
-      <path d="M16 174 C50 118, 118 72, 174 16" stroke="#E65A28" stroke-width="1.2" fill="none"/>
+      <path d="M16 174 C16 94,94 16,174 16 C140 60,72 118,16 174Z" fill="#4A5D23"/>
+      <path d="M16 174 C50 118,118 72,174 16" stroke="#E65A28" stroke-width="1.2" fill="none"/>
       <ellipse cx="66" cy="112" rx="24" ry="10" fill="#D1105A" opacity=".55" transform="rotate(-42 66 112)"/>
       <ellipse cx="116" cy="64" rx="19" ry="9" fill="#FFB07C" opacity=".6" transform="rotate(-42 116 64)"/>
       <circle cx="172" cy="18" r="6.5" fill="#4A5D23" opacity=".75"/>
@@ -358,135 +370,130 @@
       <circle cx="138" cy="50" r="3.5" fill="#E65A28" opacity=".55"/>
       <circle cx="88"  cy="100" r="5"  fill="#D1105A" opacity=".4"/>
     </svg>
-
-    <!-- leaf TR -->
     <svg class="leaf-corner leaf-tr" style="top:-6px;right:-6px;width:190px;opacity:.28;" viewBox="0 0 190 190" fill="none">
-      <path d="M16 174 C16 94, 94 16, 174 16 C140 60, 72 118, 16 174Z" fill="#4A5D23"/>
-      <path d="M16 174 C50 118, 118 72, 174 16" stroke="#D1105A" stroke-width="1.2" fill="none"/>
+      <path d="M16 174 C16 94,94 16,174 16 C140 60,72 118,16 174Z" fill="#4A5D23"/>
+      <path d="M16 174 C50 118,118 72,174 16" stroke="#D1105A" stroke-width="1.2" fill="none"/>
       <ellipse cx="66" cy="112" rx="24" ry="10" fill="#E65A28" opacity=".55" transform="rotate(-42 66 112)"/>
       <ellipse cx="116" cy="64" rx="19" ry="9" fill="#D1105A" opacity=".5" transform="rotate(-42 116 64)"/>
       <circle cx="172" cy="18" r="6.5" fill="#4A5D23" opacity=".75"/>
       <circle cx="155" cy="34" r="4.5" fill="#4A5D23" opacity=".6"/>
       <circle cx="88"  cy="100" r="5"  fill="#FFB07C" opacity=".45"/>
     </svg>
-
-    <!-- leaf BL -->
     <svg class="leaf-corner leaf-bl" style="bottom:-6px;left:-6px;width:150px;opacity:.22;transform:rotate(90deg) scaleX(-1);" viewBox="0 0 160 160" fill="none">
-      <path d="M10 150 C40 100, 100 60, 150 10 C120 50, 60 100, 10 150Z" fill="#4A5D23"/>
+      <path d="M10 150 C40 100,100 60,150 10 C120 50,60 100,10 150Z" fill="#4A5D23"/>
       <ellipse cx="75" cy="75" rx="20" ry="9" fill="#E65A28" opacity=".55" transform="rotate(-45 75 75)"/>
       <circle cx="130" cy="20" r="5" fill="#4A5D23" opacity=".6"/>
     </svg>
-
-    <!-- leaf BR -->
     <svg class="leaf-corner leaf-br" style="bottom:-6px;right:-6px;width:150px;opacity:.22;transform:rotate(90deg);" viewBox="0 0 160 160" fill="none">
-      <path d="M10 150 C40 100, 100 60, 150 10 C120 50, 60 100, 10 150Z" fill="#4A5D23"/>
+      <path d="M10 150 C40 100,100 60,150 10 C120 50,60 100,10 150Z" fill="#4A5D23"/>
       <ellipse cx="75" cy="75" rx="20" ry="9" fill="#D1105A" opacity=".5" transform="rotate(-45 75 75)"/>
       <circle cx="130" cy="20" r="5" fill="#4A5D23" opacity=".6"/>
     </svg>
 
-    <!-- text overlay -->
+    <!-- Text overlay -->
     <div id="hero-content" class="fade-up delay-1">
-      <p style="font-family:'Cormorant Garamond',serif;font-size:clamp(.9rem,3.5vw,1.1rem);font-weight:300;font-style:italic;letter-spacing:.16em;color:rgba(255,220,160,.9);margin-bottom:.8rem;">
+      <p style="font-family:'Cormorant Garamond',serif;font-size:clamp(.9rem,3.5vw,1.1rem);
+                font-weight:300;font-style:italic;letter-spacing:.16em;color:rgba(255,220,160,.9);margin-bottom:.8rem;">
         nos casamos
       </p>
-      <h1 class="name-embossed fade-up delay-2" style="font-family:'Cormorant Garamond',serif;font-size:clamp(3.4rem,14vw,7rem);font-weight:400;line-height:1;margin-bottom:.6rem;">
+      <h1 class="name-embossed fade-up delay-2"
+          style="font-family:'Cormorant Garamond',serif;font-size:clamp(3.4rem,14vw,7rem);
+                 font-weight:400;line-height:1;margin-bottom:.6rem;">
         Clarisa<br/>&amp;<br/>Ramiro
       </h1>
-      <p class="fade-up delay-3" style="font-family:'Cormorant Garamond',serif;font-size:clamp(1rem,4vw,1.4rem);font-weight:400;letter-spacing:.14em;color:rgba(255,230,180,.95);margin-bottom:.3rem;">
+      <p class="fade-up delay-3"
+         style="font-family:'Cormorant Garamond',serif;font-size:clamp(1rem,4vw,1.4rem);
+                font-weight:400;letter-spacing:.14em;color:rgba(255,230,180,.95);margin-bottom:.3rem;">
         27 · Noviembre · 2026
       </p>
-      <p class="fade-up delay-3" style="font-family:'Jost',sans-serif;font-size:.68rem;letter-spacing:.24em;text-transform:uppercase;color:rgba(180,220,120,.9);">
+      <p class="fade-up delay-3"
+         style="font-family:'Jost',sans-serif;font-size:.68rem;letter-spacing:.24em;
+                text-transform:uppercase;color:rgba(180,220,120,.9);">
         Buenos Aires
       </p>
-
-      <!-- countdown inside hero -->
-      <div class="fade-up delay-4 grid grid-cols-4 gap-3 mt-8 mx-auto" style="max-width:340px;" id="countdown-grid">
+      <div class="fade-up delay-4 grid grid-cols-4 gap-3 mt-8 mx-auto" style="max-width:340px;">
         <div class="flex flex-col items-center gap-1">
-          <span style="font-family:'Cormorant Garamond',serif;font-size:clamp(2.4rem,8vw,3.8rem);font-weight:300;line-height:1;color:#fff;" id="cd-days">--</span>
-          <span style="font-family:'Jost',sans-serif;font-size:.55rem;letter-spacing:.2em;text-transform:uppercase;color:rgba(200,220,160,.85);">Días</span>
+          <span class="cd-num" id="cd-days">--</span>
+          <span class="cd-label">Días</span>
         </div>
         <div class="flex flex-col items-center gap-1">
-          <span style="font-family:'Cormorant Garamond',serif;font-size:clamp(2.4rem,8vw,3.8rem);font-weight:300;line-height:1;color:#fff;" id="cd-hours">--</span>
-          <span style="font-family:'Jost',sans-serif;font-size:.55rem;letter-spacing:.2em;text-transform:uppercase;color:rgba(200,220,160,.85);">Horas</span>
+          <span class="cd-num" id="cd-hours">--</span>
+          <span class="cd-label">Horas</span>
         </div>
         <div class="flex flex-col items-center gap-1">
-          <span style="font-family:'Cormorant Garamond',serif;font-size:clamp(2.4rem,8vw,3.8rem);font-weight:300;line-height:1;color:#fff;" id="cd-mins">--</span>
-          <span style="font-family:'Jost',sans-serif;font-size:.55rem;letter-spacing:.2em;text-transform:uppercase;color:rgba(200,220,160,.85);">Min</span>
+          <span class="cd-num" id="cd-mins">--</span>
+          <span class="cd-label">Min</span>
         </div>
         <div class="flex flex-col items-center gap-1">
-          <span style="font-family:'Cormorant Garamond',serif;font-size:clamp(2.4rem,8vw,3.8rem);font-weight:300;line-height:1;color:#fff;" id="cd-secs">--</span>
-          <span style="font-family:'Jost',sans-serif;font-size:.55rem;letter-spacing:.2em;text-transform:uppercase;color:rgba(200,220,160,.85);">Seg</span>
+          <span class="cd-num" id="cd-secs">--</span>
+          <span class="cd-label">Seg</span>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- flower strip + mickey after hero -->
+  <!-- Flower strip + Mickey after hero -->
   <div class="flower-strip" data-aos="fade-up">
-    <!-- flower 1 -->
     <svg class="flower-a" width="36" height="36" viewBox="0 0 36 36" fill="none">
       <circle cx="18" cy="18" r="5" fill="#C9A96E" opacity=".9"/>
-      <ellipse cx="18" cy="8"  rx="4" ry="6" fill="#D1105A" opacity=".85" transform="rotate(0   18 18)"/>
-      <ellipse cx="18" cy="8"  rx="4" ry="6" fill="#E65A28" opacity=".8"  transform="rotate(45  18 18)"/>
-      <ellipse cx="18" cy="8"  rx="4" ry="6" fill="#D1105A" opacity=".75" transform="rotate(90  18 18)"/>
-      <ellipse cx="18" cy="8"  rx="4" ry="6" fill="#FFB07C" opacity=".8"  transform="rotate(135 18 18)"/>
-      <ellipse cx="18" cy="8"  rx="4" ry="6" fill="#E65A28" opacity=".85" transform="rotate(180 18 18)"/>
-      <ellipse cx="18" cy="8"  rx="4" ry="6" fill="#D1105A" opacity=".75" transform="rotate(225 18 18)"/>
-      <ellipse cx="18" cy="8"  rx="4" ry="6" fill="#FFB07C" opacity=".8"  transform="rotate(270 18 18)"/>
-      <ellipse cx="18" cy="8"  rx="4" ry="6" fill="#E65A28" opacity=".8"  transform="rotate(315 18 18)"/>
+      <ellipse cx="18" cy="8" rx="4" ry="6" fill="#D1105A" opacity=".85" transform="rotate(0   18 18)"/>
+      <ellipse cx="18" cy="8" rx="4" ry="6" fill="#E65A28" opacity=".8"  transform="rotate(45  18 18)"/>
+      <ellipse cx="18" cy="8" rx="4" ry="6" fill="#D1105A" opacity=".75" transform="rotate(90  18 18)"/>
+      <ellipse cx="18" cy="8" rx="4" ry="6" fill="#FFB07C" opacity=".8"  transform="rotate(135 18 18)"/>
+      <ellipse cx="18" cy="8" rx="4" ry="6" fill="#E65A28" opacity=".85" transform="rotate(180 18 18)"/>
+      <ellipse cx="18" cy="8" rx="4" ry="6" fill="#D1105A" opacity=".75" transform="rotate(225 18 18)"/>
+      <ellipse cx="18" cy="8" rx="4" ry="6" fill="#FFB07C" opacity=".8"  transform="rotate(270 18 18)"/>
+      <ellipse cx="18" cy="8" rx="4" ry="6" fill="#E65A28" opacity=".8"  transform="rotate(315 18 18)"/>
     </svg>
-    <!-- leaf -->
     <svg class="flower-b" width="28" height="28" viewBox="0 0 28 28" fill="none">
       <path d="M14 2 C8 8 4 16 14 26 C24 16 20 8 14 2Z" fill="#4A5D23" opacity=".7"/>
       <line x1="14" y1="4" x2="14" y2="24" stroke="#6a9a30" stroke-width=".8" opacity=".6"/>
     </svg>
-    <!-- flower 2 smaller -->
     <svg class="flower-c" width="28" height="28" viewBox="0 0 28 28" fill="none">
       <circle cx="14" cy="14" r="4" fill="#C07850" opacity=".9"/>
-      <ellipse cx="14" cy="6"  rx="3" ry="5" fill="#FFB07C" opacity=".85" transform="rotate(0   14 14)"/>
-      <ellipse cx="14" cy="6"  rx="3" ry="5" fill="#D1105A" opacity=".8"  transform="rotate(60  14 14)"/>
-      <ellipse cx="14" cy="6"  rx="3" ry="5" fill="#FFB07C" opacity=".85" transform="rotate(120 14 14)"/>
-      <ellipse cx="14" cy="6"  rx="3" ry="5" fill="#E65A28" opacity=".8"  transform="rotate(180 14 14)"/>
-      <ellipse cx="14" cy="6"  rx="3" ry="5" fill="#D1105A" opacity=".85" transform="rotate(240 14 14)"/>
-      <ellipse cx="14" cy="6"  rx="3" ry="5" fill="#FFB07C" opacity=".8"  transform="rotate(300 14 14)"/>
+      <ellipse cx="14" cy="6" rx="3" ry="5" fill="#FFB07C" opacity=".85" transform="rotate(0   14 14)"/>
+      <ellipse cx="14" cy="6" rx="3" ry="5" fill="#D1105A" opacity=".8"  transform="rotate(60  14 14)"/>
+      <ellipse cx="14" cy="6" rx="3" ry="5" fill="#FFB07C" opacity=".85" transform="rotate(120 14 14)"/>
+      <ellipse cx="14" cy="6" rx="3" ry="5" fill="#E65A28" opacity=".8"  transform="rotate(180 14 14)"/>
+      <ellipse cx="14" cy="6" rx="3" ry="5" fill="#D1105A" opacity=".85" transform="rotate(240 14 14)"/>
+      <ellipse cx="14" cy="6" rx="3" ry="5" fill="#FFB07C" opacity=".8"  transform="rotate(300 14 14)"/>
     </svg>
-    <!-- leaf 2 -->
     <svg class="flower-a" width="24" height="30" viewBox="0 0 24 30" fill="none">
       <path d="M12 2 C5 10 5 20 12 28 C19 20 19 10 12 2Z" fill="#4A5D23" opacity=".65"/>
       <path d="M12 2 C8 12 10 22 12 28" stroke="#8ab840" stroke-width=".8" opacity=".5" fill="none"/>
     </svg>
-    <!-- flower 3 -->
     <svg class="flower-b" width="32" height="32" viewBox="0 0 32 32" fill="none">
       <circle cx="16" cy="16" r="4.5" fill="#C9A96E" opacity=".9"/>
-      <ellipse cx="16" cy="7"  rx="3.5" ry="6" fill="#E65A28" opacity=".85" transform="rotate(0   16 16)"/>
-      <ellipse cx="16" cy="7"  rx="3.5" ry="6" fill="#D1105A" opacity=".8"  transform="rotate(72  16 16)"/>
-      <ellipse cx="16" cy="7"  rx="3.5" ry="6" fill="#FFB07C" opacity=".85" transform="rotate(144 16 16)"/>
-      <ellipse cx="16" cy="7"  rx="3.5" ry="6" fill="#E65A28" opacity=".8"  transform="rotate(216 16 16)"/>
-      <ellipse cx="16" cy="7"  rx="3.5" ry="6" fill="#D1105A" opacity=".85" transform="rotate(288 16 16)"/>
+      <ellipse cx="16" cy="7" rx="3.5" ry="6" fill="#E65A28" opacity=".85" transform="rotate(0   16 16)"/>
+      <ellipse cx="16" cy="7" rx="3.5" ry="6" fill="#D1105A" opacity=".8"  transform="rotate(72  16 16)"/>
+      <ellipse cx="16" cy="7" rx="3.5" ry="6" fill="#FFB07C" opacity=".85" transform="rotate(144 16 16)"/>
+      <ellipse cx="16" cy="7" rx="3.5" ry="6" fill="#E65A28" opacity=".8"  transform="rotate(216 16 16)"/>
+      <ellipse cx="16" cy="7" rx="3.5" ry="6" fill="#D1105A" opacity=".85" transform="rotate(288 16 16)"/>
     </svg>
   </div>
-
-  <!-- visible mickey -->
   <div class="mickey-section" data-aos="fade-up">
     <div class="mickey-icon"><div class="m-ear"></div><div class="m-head"></div><div class="m-ear"></div></div>
     <span class="mickey-label">con todo el amor del mundo</span>
   </div>
 
-  <!-- ══════════════════════════════════════ -->
-  <!-- 2. CEREMONIA & FIESTA                 -->
-  <!-- ══════════════════════════════════════ -->
+  <!-- ════════════════════════════════════ -->
+  <!-- 2. CEREMONIA & FIESTA               -->
+  <!-- ════════════════════════════════════ -->
   <section class="px-6 py-16 max-w-lg mx-auto space-y-8">
     <div class="text-center" data-aos="fade-up">
       <p class="section-label mb-3">El gran día</p>
-      <h2 style="font-family:'Cormorant Garamond',serif;font-size:clamp(2rem,8vw,3rem);font-weight:300;color:var(--ink);">Ceremonia &amp; Fiesta</h2>
+      <h2 style="font-family:'Cormorant Garamond',serif;font-size:clamp(2rem,8vw,3rem);font-weight:300;color:var(--ink);">
+        Ceremonia &amp; Fiesta
+      </h2>
     </div>
 
-    <!-- Ceremonia -->
     <div class="card-tropical p-7" data-aos="fade-up" data-aos-delay="80">
       <div class="card-accent" style="background:linear-gradient(90deg,var(--fuschia),var(--burnt),var(--peach));"></div>
       <div class="flex items-start gap-4 mb-5">
         <div class="icon-circle">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"><circle cx="9" cy="12" r="5"/><circle cx="15" cy="12" r="5"/></svg>
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round">
+            <circle cx="9" cy="12" r="5"/><circle cx="15" cy="12" r="5"/>
+          </svg>
         </div>
         <div>
           <p class="section-label mb-1">Ceremonia</p>
@@ -496,21 +503,31 @@
       </div>
       <hr class="thin mb-5"/>
       <div class="grid grid-cols-2 gap-4 mb-6">
-        <div><p class="section-label mb-1">Horario</p><p style="font-family:'Cormorant Garamond',serif;font-size:1.6rem;font-weight:300;">18:00 hs</p></div>
-        <div><p class="section-label mb-1">Lugar</p><p style="font-size:.8rem;line-height:1.5;">Basílica de San Carlos<br/>Buenos Aires</p></div>
+        <div>
+          <p class="section-label mb-1">Horario</p>
+          <p style="font-family:'Cormorant Garamond',serif;font-size:1.6rem;font-weight:300;">18:00 hs</p>
+        </div>
+        <div>
+          <p class="section-label mb-1">Lugar</p>
+          <p style="font-size:.8rem;line-height:1.5;">Basílica de San Carlos<br/>Buenos Aires</p>
+        </div>
       </div>
-      <a href="https://maps.google.com/?q=Basilica+de+San+Carlos+Borromeo+Almagro+Buenos+Aires" target="_blank" class="btn-olive w-full justify-center">
-        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+      <a href="https://maps.google.com/?q=Basilica+de+San+Carlos+Borromeo+Almagro+Buenos+Aires"
+         target="_blank" class="btn-olive w-full justify-center">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/>
+        </svg>
         <span>Ver ubicación</span>
       </a>
     </div>
 
-    <!-- Fiesta -->
     <div class="card-tropical p-7" data-aos="fade-up" data-aos-delay="160">
       <div class="card-accent" style="background:linear-gradient(90deg,var(--olive),#6a9a30,var(--olive));"></div>
       <div class="flex items-start gap-4 mb-5">
         <div class="icon-circle">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"><path d="M8 22h8M12 11v11M6 2l1 9a5 5 0 0010 0l1-9H6z"/></svg>
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M8 22h8M12 11v11M6 2l1 9a5 5 0 0010 0l1-9H6z"/>
+          </svg>
         </div>
         <div>
           <p class="section-label mb-1">Fiesta</p>
@@ -520,66 +537,119 @@
       </div>
       <hr class="thin mb-5"/>
       <div class="grid grid-cols-2 gap-4 mb-6">
-        <div><p class="section-label mb-1">Horario</p><p style="font-family:'Cormorant Garamond',serif;font-size:1.6rem;font-weight:300;">21:00 hs</p></div>
-        <div><p class="section-label mb-1">Lugar</p><p style="font-size:.8rem;line-height:1.5;">Estilo Coghlan<br/>Buenos Aires</p></div>
+        <div>
+          <p class="section-label mb-1">Horario</p>
+          <p style="font-family:'Cormorant Garamond',serif;font-size:1.6rem;font-weight:300;">21:00 hs</p>
+        </div>
+        <div>
+          <p class="section-label mb-1">Lugar</p>
+          <p style="font-size:.8rem;line-height:1.5;">Estilo Coghlan<br/>Buenos Aires</p>
+        </div>
       </div>
-      <a href="https://maps.google.com/?q=Estilo+Coghlan+Buenos+Aires" target="_blank" class="btn-olive w-full justify-center">
-        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+      <a href="https://maps.google.com/?q=Estilo+Coghlan+Buenos+Aires"
+         target="_blank" class="btn-olive w-full justify-center">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/>
+        </svg>
         <span>Ver ubicación</span>
       </a>
     </div>
   </section>
 
-  <!-- flower + mickey separator -->
+  <!-- Flower + Mickey separator -->
   <div class="flower-strip" data-aos="fade-up" style="opacity:.75;">
-    <svg class="flower-c" width="22" height="22" viewBox="0 0 28 28" fill="none"><circle cx="14" cy="14" r="4" fill="#C07850" opacity=".9"/><ellipse cx="14" cy="6" rx="3" ry="5" fill="#FFB07C" opacity=".85" transform="rotate(0 14 14)"/><ellipse cx="14" cy="6" rx="3" ry="5" fill="#D1105A" opacity=".8" transform="rotate(60 14 14)"/><ellipse cx="14" cy="6" rx="3" ry="5" fill="#FFB07C" opacity=".85" transform="rotate(120 14 14)"/><ellipse cx="14" cy="6" rx="3" ry="5" fill="#E65A28" opacity=".8" transform="rotate(180 14 14)"/><ellipse cx="14" cy="6" rx="3" ry="5" fill="#D1105A" opacity=".85" transform="rotate(240 14 14)"/><ellipse cx="14" cy="6" rx="3" ry="5" fill="#FFB07C" opacity=".8" transform="rotate(300 14 14)"/></svg>
+    <svg class="flower-c" width="22" height="22" viewBox="0 0 28 28" fill="none">
+      <circle cx="14" cy="14" r="4" fill="#C07850" opacity=".9"/>
+      <ellipse cx="14" cy="6" rx="3" ry="5" fill="#FFB07C" opacity=".85" transform="rotate(0   14 14)"/>
+      <ellipse cx="14" cy="6" rx="3" ry="5" fill="#D1105A" opacity=".8"  transform="rotate(60  14 14)"/>
+      <ellipse cx="14" cy="6" rx="3" ry="5" fill="#FFB07C" opacity=".85" transform="rotate(120 14 14)"/>
+      <ellipse cx="14" cy="6" rx="3" ry="5" fill="#E65A28" opacity=".8"  transform="rotate(180 14 14)"/>
+      <ellipse cx="14" cy="6" rx="3" ry="5" fill="#D1105A" opacity=".85" transform="rotate(240 14 14)"/>
+      <ellipse cx="14" cy="6" rx="3" ry="5" fill="#FFB07C" opacity=".8"  transform="rotate(300 14 14)"/>
+    </svg>
     <div class="mickey-icon" style="margin:0 8px;"><div class="m-ear"></div><div class="m-head"></div><div class="m-ear"></div></div>
-    <svg class="flower-a" width="22" height="22" viewBox="0 0 28 28" fill="none"><path d="M14 2 C8 8 4 16 14 26 C24 16 20 8 14 2Z" fill="#4A5D23" opacity=".7"/></svg>
+    <svg class="flower-a" width="22" height="22" viewBox="0 0 28 28" fill="none">
+      <path d="M14 2 C8 8 4 16 14 26 C24 16 20 8 14 2Z" fill="#4A5D23" opacity=".7"/>
+    </svg>
   </div>
-  <!-- ══════════════════════════════════════ -->
+
+  <!-- ════════════════════════════════════ -->
+  <!-- 3. CONFIRMACIÓN                     -->
+  <!-- ════════════════════════════════════ -->
   <section class="px-6 py-16 max-w-lg mx-auto text-center" data-aos="fade-up">
     <p class="section-label mb-3">¿Venís?</p>
-    <h2 style="font-family:'Cormorant Garamond',serif;font-size:clamp(2rem,8vw,3rem);font-weight:300;color:var(--ink);" class="mb-3">Confirmá tu asistencia</h2>
+    <h2 style="font-family:'Cormorant Garamond',serif;font-size:clamp(2rem,8vw,3rem);font-weight:300;color:var(--ink);" class="mb-3">
+      Confirmá tu asistencia
+    </h2>
     <p style="font-size:.82rem;line-height:1.8;color:var(--olive);" class="mb-6">
       Necesitamos saber si podemos contar con vos.<br/>
       Respondé antes del <strong style="color:var(--ink);font-weight:400;">01 de octubre de 2026</strong>.
     </p>
-    <div class="mb-8 mx-auto" style="max-width:290px;background:rgba(209,16,90,.06);border:1px solid rgba(209,16,90,.2);padding:12px 18px;display:flex;align-items:center;gap:10px;" data-aos="fade-up" data-aos-delay="60">
+    <div class="mb-8 mx-auto" style="max-width:290px;background:rgba(209,16,90,.06);
+         border:1px solid rgba(209,16,90,.2);padding:12px 18px;
+         display:flex;align-items:center;gap:10px;" data-aos="fade-up" data-aos-delay="60">
       <span style="font-size:1.1rem;flex-shrink:0;">🥂</span>
-      <p style="font-family:'Jost',sans-serif;font-size:.68rem;letter-spacing:.1em;text-transform:uppercase;color:var(--olive);text-align:left;line-height:1.6;">
+      <p style="font-family:'Jost',sans-serif;font-size:.68rem;letter-spacing:.1em;
+                text-transform:uppercase;color:var(--olive);text-align:left;line-height:1.6;">
         Evento para adultos<br/>
-        <span style="color:var(--fuschia);font-style:italic;text-transform:none;letter-spacing:0;">No se admiten menores de edad</span>
+        <span style="color:var(--fuschia);font-style:italic;text-transform:none;letter-spacing:0;">
+          No se admiten menores de edad
+        </span>
       </p>
     </div>
-    <a href="https://forms.gle/LdhSHR55tofS6uuKA" target="_blank" class="btn-luxury" data-aos="zoom-in" data-aos-delay="100">
-      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+    <a href="https://forms.gle/LdhSHR55tofS6uuKA" target="_blank" class="btn-luxury"
+       data-aos="zoom-in" data-aos-delay="100">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/>
+        <polyline points="14 2 14 8 20 8"/>
+        <line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/>
+      </svg>
       <span>Confirmar asistencia</span>
     </a>
-    <p style="font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;color:var(--olive);opacity:.7;" class="mt-5">Tu presencia es nuestro regalo ✦</p>
+    <p style="font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;color:var(--olive);opacity:.7;" class="mt-5">
+      Tu presencia es nuestro regalo ✦
+    </p>
   </section>
 
-  <!-- flower + mickey separator -->
+  <!-- Flower + Mickey separator -->
   <div class="flower-strip" data-aos="fade-up" style="opacity:.75;">
-    <svg class="flower-b" width="22" height="22" viewBox="0 0 32 32" fill="none"><circle cx="16" cy="16" r="4.5" fill="#C9A96E" opacity=".9"/><ellipse cx="16" cy="7" rx="3.5" ry="6" fill="#E65A28" opacity=".85" transform="rotate(0 16 16)"/><ellipse cx="16" cy="7" rx="3.5" ry="6" fill="#D1105A" opacity=".8" transform="rotate(72 16 16)"/><ellipse cx="16" cy="7" rx="3.5" ry="6" fill="#FFB07C" opacity=".85" transform="rotate(144 16 16)"/><ellipse cx="16" cy="7" rx="3.5" ry="6" fill="#E65A28" opacity=".8" transform="rotate(216 16 16)"/><ellipse cx="16" cy="7" rx="3.5" ry="6" fill="#D1105A" opacity=".85" transform="rotate(288 16 16)"/></svg>
+    <svg class="flower-b" width="22" height="22" viewBox="0 0 32 32" fill="none">
+      <circle cx="16" cy="16" r="4.5" fill="#C9A96E" opacity=".9"/>
+      <ellipse cx="16" cy="7" rx="3.5" ry="6" fill="#E65A28" opacity=".85" transform="rotate(0   16 16)"/>
+      <ellipse cx="16" cy="7" rx="3.5" ry="6" fill="#D1105A" opacity=".8"  transform="rotate(72  16 16)"/>
+      <ellipse cx="16" cy="7" rx="3.5" ry="6" fill="#FFB07C" opacity=".85" transform="rotate(144 16 16)"/>
+      <ellipse cx="16" cy="7" rx="3.5" ry="6" fill="#E65A28" opacity=".8"  transform="rotate(216 16 16)"/>
+      <ellipse cx="16" cy="7" rx="3.5" ry="6" fill="#D1105A" opacity=".85" transform="rotate(288 16 16)"/>
+    </svg>
     <div class="mickey-icon" style="margin:0 8px;"><div class="m-ear"></div><div class="m-head"></div><div class="m-ear"></div></div>
-    <svg class="flower-c" width="20" height="26" viewBox="0 0 24 30" fill="none"><path d="M12 2 C5 10 5 20 12 28 C19 20 19 10 12 2Z" fill="#4A5D23" opacity=".65"/></svg>
+    <svg class="flower-c" width="20" height="26" viewBox="0 0 24 30" fill="none">
+      <path d="M12 2 C5 10 5 20 12 28 C19 20 19 10 12 2Z" fill="#4A5D23" opacity=".65"/>
+    </svg>
   </div>
 
-  <!-- ══════════════════════════════════════ -->
-  <!-- 4. DRESS CODE                         -->
-  <!-- ══════════════════════════════════════ -->
+  <!-- ════════════════════════════════════ -->
+  <!-- 4. DRESS CODE                       -->
+  <!-- ════════════════════════════════════ -->
   <section class="px-6 py-16 max-w-lg mx-auto" data-aos="fade-up">
     <div class="text-center mb-10">
       <p class="section-label mb-3">Vestimenta</p>
-      <h2 style="font-family:'Cormorant Garamond',serif;font-size:clamp(2rem,8vw,3rem);font-weight:300;color:var(--ink);">Dress Code</h2>
+      <h2 style="font-family:'Cormorant Garamond',serif;font-size:clamp(2rem,8vw,3rem);font-weight:300;color:var(--ink);">
+        Dress Code
+      </h2>
     </div>
     <div class="card-tropical p-8 text-center">
       <div class="card-accent" style="background:linear-gradient(90deg,var(--peach),var(--fuschia),var(--burnt),var(--olive));"></div>
       <div class="mx-auto mb-6" style="width:56px;height:56px;border-radius:50%;border:1px solid rgba(74,93,35,.3);display:flex;align-items:center;justify-content:center;color:var(--olive);">
-        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg>
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/>
+        </svg>
       </div>
-      <p style="font-family:'Cormorant Garamond',serif;font-size:2rem;font-weight:400;letter-spacing:.06em;color:var(--ink);" class="mb-2">Elegante Sport</p>
-      <p style="font-size:.78rem;line-height:1.9;color:var(--olive);" class="mb-7">Vestido para las damas · Traje para los caballeros.<br/>¡Vení cómodo/a y con toda la onda!</p>
+      <p style="font-family:'Cormorant Garamond',serif;font-size:2rem;font-weight:400;letter-spacing:.06em;color:var(--ink);" class="mb-2">
+        Elegante Sport
+      </p>
+      <p style="font-size:.78rem;line-height:1.9;color:var(--olive);" class="mb-7">
+        Vestido para las damas · Traje para los caballeros.<br/>¡Vení cómodo/a y con toda la onda!
+      </p>
       <hr class="thin mb-7"/>
       <div class="grid grid-cols-2 gap-4 mb-7">
         <div class="flex flex-col items-center gap-3">
@@ -604,7 +674,6 @@
         <div class="flex flex-col items-center gap-2"><div class="swatch" style="background:#4A5D23;"></div><span style="font-size:.58rem;letter-spacing:.1em;text-transform:uppercase;color:var(--olive);">Olivo</span></div>
         <div class="flex flex-col items-center gap-2"><div class="swatch" style="background:#2c2c3e;"></div><span style="font-size:.58rem;letter-spacing:.1em;text-transform:uppercase;color:var(--olive);">Noche</span></div>
       </div>
-      <!-- mickey detail -->
       <div class="mickey-icon" style="justify-content:center;opacity:.35;margin-bottom:1rem;">
         <div class="m-ear"></div><div class="m-head"></div><div class="m-ear"></div>
       </div>
@@ -612,36 +681,58 @@
     </div>
   </section>
 
-  <!-- flower + mickey separator -->
+  <!-- Flower + Mickey separator -->
   <div class="flower-strip" data-aos="fade-up" style="opacity:.75;">
-    <svg class="flower-a" width="22" height="22" viewBox="0 0 36 36" fill="none"><circle cx="18" cy="18" r="5" fill="#C9A96E" opacity=".9"/><ellipse cx="18" cy="8" rx="4" ry="6" fill="#D1105A" opacity=".85" transform="rotate(0 18 18)"/><ellipse cx="18" cy="8" rx="4" ry="6" fill="#E65A28" opacity=".8" transform="rotate(45 18 18)"/><ellipse cx="18" cy="8" rx="4" ry="6" fill="#D1105A" opacity=".75" transform="rotate(90 18 18)"/><ellipse cx="18" cy="8" rx="4" ry="6" fill="#FFB07C" opacity=".8" transform="rotate(135 18 18)"/><ellipse cx="18" cy="8" rx="4" ry="6" fill="#E65A28" opacity=".85" transform="rotate(180 18 18)"/><ellipse cx="18" cy="8" rx="4" ry="6" fill="#D1105A" opacity=".75" transform="rotate(225 18 18)"/><ellipse cx="18" cy="8" rx="4" ry="6" fill="#FFB07C" opacity=".8" transform="rotate(270 18 18)"/><ellipse cx="18" cy="8" rx="4" ry="6" fill="#E65A28" opacity=".8" transform="rotate(315 18 18)"/></svg>
+    <svg class="flower-a" width="22" height="22" viewBox="0 0 36 36" fill="none">
+      <circle cx="18" cy="18" r="5" fill="#C9A96E" opacity=".9"/>
+      <ellipse cx="18" cy="8" rx="4" ry="6" fill="#D1105A" opacity=".85" transform="rotate(0   18 18)"/>
+      <ellipse cx="18" cy="8" rx="4" ry="6" fill="#E65A28" opacity=".8"  transform="rotate(45  18 18)"/>
+      <ellipse cx="18" cy="8" rx="4" ry="6" fill="#D1105A" opacity=".75" transform="rotate(90  18 18)"/>
+      <ellipse cx="18" cy="8" rx="4" ry="6" fill="#FFB07C" opacity=".8"  transform="rotate(135 18 18)"/>
+      <ellipse cx="18" cy="8" rx="4" ry="6" fill="#E65A28" opacity=".85" transform="rotate(180 18 18)"/>
+      <ellipse cx="18" cy="8" rx="4" ry="6" fill="#D1105A" opacity=".75" transform="rotate(225 18 18)"/>
+      <ellipse cx="18" cy="8" rx="4" ry="6" fill="#FFB07C" opacity=".8"  transform="rotate(270 18 18)"/>
+      <ellipse cx="18" cy="8" rx="4" ry="6" fill="#E65A28" opacity=".8"  transform="rotate(315 18 18)"/>
+    </svg>
     <div class="mickey-icon" style="margin:0 8px;"><div class="m-ear"></div><div class="m-head"></div><div class="m-ear"></div></div>
-    <svg class="flower-b" width="22" height="22" viewBox="0 0 28 28" fill="none"><path d="M14 2 C8 8 4 16 14 26 C24 16 20 8 14 2Z" fill="#4A5D23" opacity=".7"/></svg>
+    <svg class="flower-b" width="22" height="22" viewBox="0 0 28 28" fill="none">
+      <path d="M14 2 C8 8 4 16 14 26 C24 16 20 8 14 2Z" fill="#4A5D23" opacity=".7"/>
+    </svg>
   </div>
 
-  <!-- ══════════════════════════════════════ -->
-  <!-- 5. AGENDAR                            -->
-  <!-- ══════════════════════════════════════ -->
+  <!-- ════════════════════════════════════ -->
+  <!-- 5. AGENDAR                          -->
+  <!-- ════════════════════════════════════ -->
   <section class="px-6 py-16 max-w-lg mx-auto text-center" data-aos="fade-up">
     <p class="section-label mb-3">Recordatorio</p>
-    <h2 style="font-family:'Cormorant Garamond',serif;font-size:clamp(2rem,8vw,3rem);font-weight:300;color:var(--ink);" class="mb-3">Agendá la fecha</h2>
+    <h2 style="font-family:'Cormorant Garamond',serif;font-size:clamp(2rem,8vw,3rem);font-weight:300;color:var(--ink);" class="mb-3">
+      Agendá la fecha
+    </h2>
     <p style="font-size:.82rem;line-height:1.8;color:var(--olive);" class="mb-8">
       Para que el 27 de noviembre no te encuentre desprevenido/a,<br/>guardá el evento en tu calendario.
     </p>
     <div class="flex flex-col gap-4 items-center">
       <a href="https://www.google.com/calendar/render?action=TEMPLATE&text=Boda+Clarisa+%26+Ramiro&dates=20261127T180000/20261128T050000&location=Bas%C3%ADlica+de+San+Carlos+y+Estilo+Coghlan%2C+Buenos+Aires&details=Ceremonia+18%3A00+hs+%E2%80%94+Bas%C3%ADlica+de+San+Carlos%0AFiesta+21%3A00+hs+%E2%80%94+Estilo+Coghlan+%F0%9F%A5%82"
          target="_blank" class="btn-luxury" data-aos="zoom-in" data-aos-delay="80">
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
+          <line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/>
+        </svg>
         <span>Agregar a Google Calendar</span>
       </a>
       <button onclick="downloadICS()" class="btn-burnt" data-aos="zoom-in" data-aos-delay="160">
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/>
+          <polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/>
+        </svg>
         <span>Descargar archivo .ics</span>
       </button>
     </div>
   </section>
 
-  <!-- FOOTER -->
+  <!-- ════════════════════════════════════ -->
+  <!-- FOOTER                              -->
+  <!-- ════════════════════════════════════ -->
   <footer class="px-6 py-16 text-center" data-aos="fade-up">
     <div class="mickey-icon" style="justify-content:center;opacity:.3;margin-bottom:1.5rem;">
       <div class="m-ear"></div><div class="m-head"></div><div class="m-ear"></div>
@@ -655,166 +746,192 @@
     <p style="font-family:'Cormorant Garamond',serif;font-size:1.6rem;font-weight:300;color:var(--ink);letter-spacing:.04em;">
       Con amor,<br/><em class="name-embossed">Clarisa &amp; Ramiro</em>
     </p>
-    <p style="font-family:'Jost',sans-serif;font-size:.65rem;letter-spacing:.2em;text-transform:uppercase;color:var(--olive);margin-top:16px;">27 · 11 · 2026</p>
+    <p style="font-family:'Jost',sans-serif;font-size:.65rem;letter-spacing:.2em;text-transform:uppercase;color:var(--olive);margin-top:16px;">
+      27 · 11 · 2026
+    </p>
   </footer>
 
   <script>
-    AOS.init({duration:900,easing:'ease-out-quart',once:true,offset:60});
+    // ── Init ──
+    AOS.init({ duration:900, easing:'ease-out-quart', once:true, offset:60 });
 
     // ── Countdown ──
     const weddingDate = new Date('2026-11-27T18:00:00-03:00');
     function updateCountdown() {
       const diff = weddingDate - new Date();
-      if(diff<=0){['cd-days','cd-hours','cd-mins','cd-secs'].forEach(id=>document.getElementById(id).textContent='0');return;}
-      document.getElementById('cd-days').textContent  = String(Math.floor(diff/86400000));
-      document.getElementById('cd-hours').textContent = String(Math.floor((diff%86400000)/3600000)).padStart(2,'0');
-      document.getElementById('cd-mins').textContent  = String(Math.floor((diff%3600000)/60000)).padStart(2,'0');
-      document.getElementById('cd-secs').textContent  = String(Math.floor((diff%60000)/1000)).padStart(2,'0');
+      if (diff <= 0) {
+        ['cd-days','cd-hours','cd-mins','cd-secs'].forEach(id => document.getElementById(id).textContent = '0');
+        return;
+      }
+      document.getElementById('cd-days').textContent  = String(Math.floor(diff / 86400000));
+      document.getElementById('cd-hours').textContent = String(Math.floor((diff % 86400000) / 3600000)).padStart(2,'0');
+      document.getElementById('cd-mins').textContent  = String(Math.floor((diff % 3600000) / 60000)).padStart(2,'0');
+      document.getElementById('cd-secs').textContent  = String(Math.floor((diff % 60000) / 1000)).padStart(2,'0');
     }
-    updateCountdown(); setInterval(updateCountdown,1000);
+    updateCountdown();
+    setInterval(updateCountdown, 1000);
 
-    // ── ICS ──
-    function downloadICS(){
-      const ics=['BEGIN:VCALENDAR','VERSION:2.0','PRODID:-//Clarisa & Ramiro//Wedding//ES','BEGIN:VEVENT','UID:clarisa-ramiro-boda-2026@wedding','DTSTAMP:20260101T000000Z','DTSTART;TZID=America/Argentina/Buenos_Aires:20261127T180000','DTEND;TZID=America/Argentina/Buenos_Aires:20261128T050000','SUMMARY:💍 Boda de Clarisa & Ramiro','DESCRIPTION:¡Nos casamos!\\n\\nCeremonia: 18:00 hs — Basílica de San Carlos\\nFiesta: 21:00 hs — Estilo Coghlan','LOCATION:Basílica de San Carlos\\, Buenos Aires\\, Argentina','STATUS:CONFIRMED','END:VEVENT','END:VCALENDAR'].join('\r\n');
-      const a=Object.assign(document.createElement('a'),{href:URL.createObjectURL(new Blob([ics],{type:'text/calendar'})),download:'boda-clarisa-ramiro.ics'});
-      document.body.appendChild(a);a.click();document.body.removeChild(a);
+    // ── ICS download ──
+    function downloadICS() {
+      const lines = [
+        'BEGIN:VCALENDAR','VERSION:2.0','PRODID:-//Clarisa & Ramiro//Wedding//ES',
+        'BEGIN:VEVENT','UID:clarisa-ramiro-boda-2026@wedding','DTSTAMP:20260101T000000Z',
+        'DTSTART;TZID=America/Argentina/Buenos_Aires:20261127T180000',
+        'DTEND;TZID=America/Argentina/Buenos_Aires:20261128T050000',
+        'SUMMARY:💍 Boda de Clarisa & Ramiro',
+        'DESCRIPTION:¡Nos casamos!\\n\\nCeremonia: 18:00 hs — Basílica de San Carlos\\nFiesta: 21:00 hs — Estilo Coghlan',
+        'LOCATION:Basílica de San Carlos\\, Buenos Aires\\, Argentina',
+        'STATUS:CONFIRMED','END:VEVENT','END:VCALENDAR'
+      ];
+      const blob = new Blob([lines.join('\r\n')], { type:'text/calendar' });
+      const a = Object.assign(document.createElement('a'), {
+        href: URL.createObjectURL(blob), download:'boda-clarisa-ramiro.ics'
+      });
+      document.body.appendChild(a); a.click(); document.body.removeChild(a);
     }
 
     // ── YouTube ──
-    let ytPlayer=null,isMuted=false,ytReady=false;
-    function onYouTubeIframeAPIReady(){
-      ytPlayer=new YT.Player('yt-player',{
-        videoId:'InBWYeqec_w',
-        playerVars:{autoplay:0,controls:0,loop:1,playlist:'InBWYeqec_w',mute:0,playsinline:1},
-        events:{onReady:()=>{ytReady=true;}}
+    let ytPlayer = null, isMuted = false, ytReady = false;
+
+    function onYouTubeIframeAPIReady() {
+      ytPlayer = new YT.Player('yt-player', {
+        videoId: 'InBWYeqec_w',
+        playerVars: { autoplay:0, controls:0, loop:1, playlist:'InBWYeqec_w', mute:0, playsinline:1 },
+        events: { onReady: () => { ytReady = true; } }
       });
     }
-    function enterMagic(){
+
+    // ── Splash enter ──
+    function enterMagic() {
       document.getElementById('splash').classList.add('hidden');
       document.body.classList.remove('splash-active');
-      const tryPlay=()=>{if(ytPlayer){ytPlayer.playVideo();ytPlayer.setVolume(60);}};
-      ytReady?tryPlay():setTimeout(tryPlay,1500);
-      setTimeout(()=>document.getElementById('music-btn').classList.add('visible'),1000);
-      // create pixie canvas dynamically — avoids any render artifacts
-      const pc = document.createElement('canvas');
-      pc.style.cssText='position:fixed;inset:0;pointer-events:none;z-index:9996;';
-      document.body.appendChild(pc);
+
+      const tryPlay = () => { if (ytPlayer) { ytPlayer.playVideo(); ytPlayer.setVolume(60); } };
+      ytReady ? tryPlay() : setTimeout(tryPlay, 1500);
+
+      setTimeout(() => document.getElementById('music-btn').classList.add('visible'), 1000);
+
       initSparkles();
+
+      // Create pixie dust canvas dynamically — avoids render artifacts
+      const pc = document.createElement('canvas');
+      pc.style.cssText = 'position:fixed;inset:0;pointer-events:none;z-index:9996;';
+      document.body.appendChild(pc);
       initPixieDust(pc);
     }
-    function toggleMute(){
-      if(!ytPlayer)return;
-      isMuted=!isMuted;
-      isMuted?ytPlayer.mute():ytPlayer.unMute();
-      document.getElementById('icon-sound').style.display=isMuted?'none':'';
-      document.getElementById('icon-mute').style.display=isMuted?'':'none';
-      document.getElementById('music-btn').classList.toggle('muted',isMuted);
+
+    // ── Mute toggle ──
+    function toggleMute() {
+      if (!ytPlayer) return;
+      isMuted = !isMuted;
+      isMuted ? ytPlayer.mute() : ytPlayer.unMute();
+      document.getElementById('icon-sound').style.display = isMuted ? 'none' : '';
+      document.getElementById('icon-mute').style.display  = isMuted ? '' : 'none';
+      document.getElementById('music-btn').classList.toggle('muted', isMuted);
     }
 
-    // ── Sparkles on hero ──
-    function initSparkles(){
-      const canvas=document.getElementById('sparkle-canvas');
-      if(!canvas)return;
-      const resize=()=>{canvas.width=canvas.offsetWidth;canvas.height=canvas.offsetHeight;};
-      resize(); window.addEventListener('resize',resize);
-      const ctx=canvas.getContext('2d');
-      const COLORS=['#C9A96E','#FFB07C','#D1105A','#ffffff','#E65A28','#4A5D23','#f0d080'];
-      const rand=(a,b)=>a+Math.random()*(b-a);
-      const mkp=()=>({x:rand(0,canvas.width),y:rand(0,canvas.height),r:rand(1.5,3.5),maxAlpha:rand(.45,.9),speed:rand(.007,.02),phase:rand(0,Math.PI*2),color:COLORS[Math.floor(Math.random()*COLORS.length)]});
-      const pts=Array.from({length:55},mkp);
-      (function draw(){
-        ctx.clearRect(0,0,canvas.width,canvas.height);
-        pts.forEach(p=>{
-          p.phase+=p.speed;
-          if(p.phase>Math.PI*2*rand(2,5))Object.assign(p,mkp());
-          const a=p.maxAlpha*(.5+.5*Math.sin(p.phase)),s=p.r;
-          ctx.save();ctx.globalAlpha=a;ctx.fillStyle=p.color;ctx.shadowColor=p.color;ctx.shadowBlur=8;
+    // ── Sparkles on hero photo ──
+    function initSparkles() {
+      const canvas = document.getElementById('sparkle-canvas');
+      if (!canvas) return;
+      const resize = () => { canvas.width = canvas.offsetWidth; canvas.height = canvas.offsetHeight; };
+      resize();
+      window.addEventListener('resize', resize);
+
+      const ctx = canvas.getContext('2d');
+      const COLORS = ['#C9A96E','#FFB07C','#D1105A','#ffffff','#E65A28','#4A5D23','#f0d080'];
+      const rand = (a, b) => a + Math.random() * (b - a);
+      const mkp = () => ({
+        x: rand(0, canvas.width), y: rand(0, canvas.height),
+        r: rand(1.5, 3.5), maxAlpha: rand(.45, .9),
+        speed: rand(.007, .02), phase: rand(0, Math.PI * 2),
+        color: COLORS[Math.floor(Math.random() * COLORS.length)]
+      });
+      const pts = Array.from({ length:55 }, mkp);
+
+      (function draw() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        pts.forEach(p => {
+          p.phase += p.speed;
+          if (p.phase > Math.PI * 2 * rand(2, 5)) Object.assign(p, mkp());
+          const a = p.maxAlpha * (.5 + .5 * Math.sin(p.phase)), s = p.r;
+          ctx.save();
+          ctx.globalAlpha = a; ctx.fillStyle = p.color;
+          ctx.shadowColor = p.color; ctx.shadowBlur = 8;
           ctx.beginPath();
-          ctx.moveTo(p.x,p.y-s*2.5);ctx.lineTo(p.x+s*.5,p.y-s*.5);
-          ctx.lineTo(p.x+s*2.5,p.y);ctx.lineTo(p.x+s*.5,p.y+s*.5);
-          ctx.lineTo(p.x,p.y+s*2.5);ctx.lineTo(p.x-s*.5,p.y+s*.5);
-          ctx.lineTo(p.x-s*2.5,p.y);ctx.lineTo(p.x-s*.5,p.y-s*.5);
-          ctx.closePath();ctx.fill();ctx.restore();
+          ctx.moveTo(p.x, p.y - s*2.5); ctx.lineTo(p.x + s*.5, p.y - s*.5);
+          ctx.lineTo(p.x + s*2.5, p.y); ctx.lineTo(p.x + s*.5, p.y + s*.5);
+          ctx.lineTo(p.x, p.y + s*2.5); ctx.lineTo(p.x - s*.5, p.y + s*.5);
+          ctx.lineTo(p.x - s*2.5, p.y); ctx.lineTo(p.x - s*.5, p.y - s*.5);
+          ctx.closePath(); ctx.fill(); ctx.restore();
         });
         requestAnimationFrame(draw);
       })();
     }
 
-    // ── Pixie Dust cursor trail ──
-    function initPixieDust(canvas){
-      const ctx=canvas.getContext('2d');
-      let W=window.innerWidth, H=window.innerHeight;
-      canvas.width=W; canvas.height=H;
-      // clear any artifacts immediately
-      ctx.clearRect(0,0,W,H);
-      window.addEventListener('resize',()=>{
-        W=window.innerWidth;H=window.innerHeight;
-        canvas.width=W;canvas.height=H;
-        ctx.clearRect(0,0,W,H);
+    // ── Pixie dust cursor trail ──
+    function initPixieDust(canvas) {
+      const ctx = canvas.getContext('2d');
+      let W = window.innerWidth, H = window.innerHeight;
+      canvas.width = W; canvas.height = H;
+      ctx.clearRect(0, 0, W, H);
+
+      window.addEventListener('resize', () => {
+        W = window.innerWidth; H = window.innerHeight;
+        canvas.width = W; canvas.height = H;
+        ctx.clearRect(0, 0, W, H);
       });
 
-      const COLORS=['#C9A96E','#D1105A','#FFB07C','#ffffff','#E65A28','#f0e060'];
-      const rand=(a,b)=>a+Math.random()*(b-a);
-      const particles=[];
-      let active=false; // don't draw until first interaction
+      const COLORS = ['#C9A96E','#D1105A','#FFB07C','#ffffff','#E65A28','#f0e060'];
+      const rand = (a, b) => a + Math.random() * (b - a);
+      const particles = [];
+      let active = false;
 
-      function spawnAt(x,y,count=4){
-        active=true;
-        for(let i=0;i<count;i++){
-          const angle=rand(0,Math.PI*2);
-          const speed=rand(.5,2.2);
+      function spawnAt(x, y, count = 4) {
+        active = true;
+        for (let i = 0; i < count; i++) {
+          const angle = rand(0, Math.PI * 2), speed = rand(.5, 2.2);
           particles.push({
-            x,y,
-            vx:Math.cos(angle)*speed,
-            vy:Math.sin(angle)*speed-rand(.5,1.5),
-            r:rand(1.2,2.8),
-            alpha:rand(.7,1),
-            decay:rand(.018,.035),
-            color:COLORS[Math.floor(Math.random()*COLORS.length)],
-            rot:rand(0,Math.PI*2),
-            rotSpeed:rand(-.08,.08)
+            x, y,
+            vx: Math.cos(angle) * speed,
+            vy: Math.sin(angle) * speed - rand(.5, 1.5),
+            r: rand(1.2, 2.8), alpha: rand(.7, 1), decay: rand(.018, .035),
+            color: COLORS[Math.floor(Math.random() * COLORS.length)],
+            rot: rand(0, Math.PI * 2), rotSpeed: rand(-.08, .08)
           });
         }
       }
 
-      let lastX=null,lastY=null;
-      window.addEventListener('mousemove',e=>{
-        if(lastX!==null){
-          const dx=e.clientX-lastX,dy=e.clientY-lastY;
-          if(Math.sqrt(dx*dx+dy*dy)>6) spawnAt(e.clientX,e.clientY,3);
+      let lastX = null, lastY = null;
+      window.addEventListener('mousemove', e => {
+        if (lastX !== null) {
+          const dx = e.clientX - lastX, dy = e.clientY - lastY;
+          if (Math.sqrt(dx*dx + dy*dy) > 6) spawnAt(e.clientX, e.clientY, 3);
         }
-        lastX=e.clientX;lastY=e.clientY;
+        lastX = e.clientX; lastY = e.clientY;
       });
-      window.addEventListener('touchmove',e=>{
-        const t=e.touches[0];spawnAt(t.clientX,t.clientY,5);
-      },{passive:true});
-      window.addEventListener('touchstart',e=>{
-        const t=e.touches[0];spawnAt(t.clientX,t.clientY,8);
-      },{passive:true});
+      window.addEventListener('touchmove',  e => spawnAt(e.touches[0].clientX, e.touches[0].clientY, 5), { passive:true });
+      window.addEventListener('touchstart', e => spawnAt(e.touches[0].clientX, e.touches[0].clientY, 8), { passive:true });
 
-      (function draw(){
-        ctx.clearRect(0,0,W,H);
-        if(active){
-          for(let i=particles.length-1;i>=0;i--){
-            const p=particles[i];
-            p.x+=p.vx;p.y+=p.vy;p.vy+=.04;
-            p.alpha-=p.decay;p.rot+=p.rotSpeed;
-            if(p.alpha<=0){particles.splice(i,1);continue;}
+      (function draw() {
+        ctx.clearRect(0, 0, W, H);
+        if (active) {
+          for (let i = particles.length - 1; i >= 0; i--) {
+            const p = particles[i];
+            p.x += p.vx; p.y += p.vy; p.vy += .04;
+            p.alpha -= p.decay; p.rot += p.rotSpeed;
+            if (p.alpha <= 0) { particles.splice(i, 1); continue; }
             ctx.save();
-            ctx.globalAlpha=p.alpha;
-            ctx.fillStyle=p.color;
-            ctx.shadowColor=p.color;
-            ctx.shadowBlur=6;
-            ctx.translate(p.x,p.y);
-            ctx.rotate(p.rot);
-            const s=p.r;
+            ctx.globalAlpha = p.alpha; ctx.fillStyle = p.color;
+            ctx.shadowColor = p.color; ctx.shadowBlur = 6;
+            ctx.translate(p.x, p.y); ctx.rotate(p.rot);
+            const s = p.r;
             ctx.beginPath();
-            ctx.moveTo(0,-s*2.2);ctx.lineTo(s*.4,-s*.4);
-            ctx.lineTo(s*2.2,0);ctx.lineTo(s*.4,s*.4);
-            ctx.lineTo(0,s*2.2);ctx.lineTo(-s*.4,s*.4);
-            ctx.lineTo(-s*2.2,0);ctx.lineTo(-s*.4,-s*.4);
-            ctx.closePath();ctx.fill();
-            ctx.restore();
+            ctx.moveTo(0, -s*2.2); ctx.lineTo(s*.4, -s*.4);
+            ctx.lineTo(s*2.2, 0);  ctx.lineTo(s*.4, s*.4);
+            ctx.lineTo(0, s*2.2);  ctx.lineTo(-s*.4, s*.4);
+            ctx.lineTo(-s*2.2, 0); ctx.lineTo(-s*.4, -s*.4);
+            ctx.closePath(); ctx.fill(); ctx.restore();
           }
         }
         requestAnimationFrame(draw);
