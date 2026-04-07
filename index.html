@@ -43,7 +43,7 @@
 
     /* ── HERO fullscreen ── */
     #hero {
-      position:relative; width:100vw; height:90vh; min-height:520px;
+      position:relative; width:100vw; height:75vh; min-height:480px;
       overflow:hidden; display:flex; align-items:flex-end; justify-content:center;
     }
     #hero-img {
@@ -260,7 +260,7 @@
       <span class="splash-star" style="font-size:.7rem;margin-top:5px;color:var(--copper);">✦</span>
       <span class="splash-star" style="font-size:1rem;color:var(--olive);">✦</span>
     </div>
-    <div style="width:90px;height:90px;border-radius:50%;overflow:hidden;border:2px solid var(--copper);margin-bottom:1.5rem;box-shadow:0 0 0 4px rgba(192,120,80,.15);">
+    <div style="width:140px;height:140px;border-radius:50%;overflow:hidden;border:2px solid var(--copper);margin-bottom:1.5rem;box-shadow:0 0 0 6px rgba(192,120,80,.12), 0 4px 24px rgba(192,120,80,.2);">
       <img src="https://i.postimg.cc/XYFKz9dS/2025-10-19-Disneys-Animal-Kingdom-Park-Disneys-animal-kingdom-theme-park-2-(1).jpg"
            alt="" style="width:100%;height:100%;object-fit:cover;object-position:center center;"/>
     </div>
@@ -652,20 +652,28 @@
       const ctx=canvas.getContext('2d');
       let W=window.innerWidth, H=window.innerHeight;
       canvas.width=W; canvas.height=H;
-      window.addEventListener('resize',()=>{W=window.innerWidth;H=window.innerHeight;canvas.width=W;canvas.height=H;});
+      // clear any artifacts immediately
+      ctx.clearRect(0,0,W,H);
+      window.addEventListener('resize',()=>{
+        W=window.innerWidth;H=window.innerHeight;
+        canvas.width=W;canvas.height=H;
+        ctx.clearRect(0,0,W,H);
+      });
 
       const COLORS=['#C9A96E','#D1105A','#FFB07C','#ffffff','#E65A28','#f0e060'];
       const rand=(a,b)=>a+Math.random()*(b-a);
       const particles=[];
+      let active=false; // don't draw until first interaction
 
       function spawnAt(x,y,count=4){
+        active=true;
         for(let i=0;i<count;i++){
           const angle=rand(0,Math.PI*2);
           const speed=rand(.5,2.2);
           particles.push({
             x,y,
             vx:Math.cos(angle)*speed,
-            vy:Math.sin(angle)*speed - rand(.5,1.5),
+            vy:Math.sin(angle)*speed-rand(.5,1.5),
             r:rand(1.2,2.8),
             alpha:rand(.7,1),
             decay:rand(.018,.035),
@@ -676,48 +684,45 @@
         }
       }
 
-      // mouse
       let lastX=null,lastY=null;
       window.addEventListener('mousemove',e=>{
         if(lastX!==null){
-          const dx=e.clientX-lastX, dy=e.clientY-lastY;
-          const dist=Math.sqrt(dx*dx+dy*dy);
-          if(dist>6) spawnAt(e.clientX,e.clientY,3);
+          const dx=e.clientX-lastX,dy=e.clientY-lastY;
+          if(Math.sqrt(dx*dx+dy*dy)>6) spawnAt(e.clientX,e.clientY,3);
         }
-        lastX=e.clientX; lastY=e.clientY;
+        lastX=e.clientX;lastY=e.clientY;
       });
-      // touch
       window.addEventListener('touchmove',e=>{
-        const t=e.touches[0];
-        spawnAt(t.clientX,t.clientY,5);
+        const t=e.touches[0];spawnAt(t.clientX,t.clientY,5);
       },{passive:true});
       window.addEventListener('touchstart',e=>{
-        const t=e.touches[0];
-        spawnAt(t.clientX,t.clientY,8);
+        const t=e.touches[0];spawnAt(t.clientX,t.clientY,8);
       },{passive:true});
 
       (function draw(){
         ctx.clearRect(0,0,W,H);
-        for(let i=particles.length-1;i>=0;i--){
-          const p=particles[i];
-          p.x+=p.vx; p.y+=p.vy; p.vy+=.04;
-          p.alpha-=p.decay; p.rot+=p.rotSpeed;
-          if(p.alpha<=0){particles.splice(i,1);continue;}
-          ctx.save();
-          ctx.globalAlpha=p.alpha;
-          ctx.fillStyle=p.color;
-          ctx.shadowColor=p.color;
-          ctx.shadowBlur=6;
-          ctx.translate(p.x,p.y);
-          ctx.rotate(p.rot);
-          const s=p.r;
-          ctx.beginPath();
-          ctx.moveTo(0,-s*2.2);ctx.lineTo(s*.4,-s*.4);
-          ctx.lineTo(s*2.2,0);ctx.lineTo(s*.4,s*.4);
-          ctx.lineTo(0,s*2.2);ctx.lineTo(-s*.4,s*.4);
-          ctx.lineTo(-s*2.2,0);ctx.lineTo(-s*.4,-s*.4);
-          ctx.closePath();ctx.fill();
-          ctx.restore();
+        if(active){
+          for(let i=particles.length-1;i>=0;i--){
+            const p=particles[i];
+            p.x+=p.vx;p.y+=p.vy;p.vy+=.04;
+            p.alpha-=p.decay;p.rot+=p.rotSpeed;
+            if(p.alpha<=0){particles.splice(i,1);continue;}
+            ctx.save();
+            ctx.globalAlpha=p.alpha;
+            ctx.fillStyle=p.color;
+            ctx.shadowColor=p.color;
+            ctx.shadowBlur=6;
+            ctx.translate(p.x,p.y);
+            ctx.rotate(p.rot);
+            const s=p.r;
+            ctx.beginPath();
+            ctx.moveTo(0,-s*2.2);ctx.lineTo(s*.4,-s*.4);
+            ctx.lineTo(s*2.2,0);ctx.lineTo(s*.4,s*.4);
+            ctx.lineTo(0,s*2.2);ctx.lineTo(-s*.4,s*.4);
+            ctx.lineTo(-s*2.2,0);ctx.lineTo(-s*.4,-s*.4);
+            ctx.closePath();ctx.fill();
+            ctx.restore();
+          }
         }
         requestAnimationFrame(draw);
       })();
