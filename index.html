@@ -244,6 +244,7 @@
     /* ── pixie dust cursor ── */
     #pixie-canvas {
       position:fixed; inset:0; pointer-events:none; z-index:9996;
+      display:none;
     }
   </style>
 </head>
@@ -605,6 +606,7 @@
       const tryPlay=()=>{if(ytPlayer){ytPlayer.playVideo();ytPlayer.setVolume(60);}};
       ytReady?tryPlay():setTimeout(tryPlay,1500);
       setTimeout(()=>document.getElementById('music-btn').classList.add('visible'),1000);
+      document.getElementById('pixie-canvas').style.display='block';
       initSparkles();
       initPixieDust();
     }
@@ -730,4 +732,5 @@
   </script>
 </body>
 </html>
+
 
