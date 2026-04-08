@@ -64,7 +64,10 @@
 
     /* ── Hero ── */
     #hero {
-      position:relative; width:100vw; height:75vh; min-height:480px;
+      position:relative; width:100vw;
+      height:75vh;
+      height:75dvh; /* dynamic viewport — fixes mobile browser chrome overlap */
+      min-height:520px;
       overflow:hidden; display:flex; align-items:flex-end; justify-content:center;
     }
     #hero-img {
@@ -74,8 +77,8 @@
     #hero-overlay {
       position:absolute; inset:0; z-index:1;
       background:linear-gradient(to bottom,
-        rgba(42,26,14,.08) 0%, rgba(42,26,14,.10) 40%,
-        rgba(42,26,14,.62) 75%, rgba(42,26,14,.82) 100%);
+        rgba(42,26,14,.05) 0%, rgba(42,26,14,.08) 35%,
+        rgba(42,26,14,.68) 72%, rgba(42,26,14,.88) 100%);
     }
     #hero-content {
       position:relative; z-index:3; text-align:center;
@@ -106,7 +109,7 @@
     .name-embossed {
       background:linear-gradient(135deg,#e0a840 0%,#f8e080 28%,#b86820 52%,#f0c050 72%,#ffe090 100%);
       -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text;
-      filter:drop-shadow(0 2px 6px rgba(80,30,0,.45));
+      filter:drop-shadow(0 2px 8px rgba(20,8,0,.7)) drop-shadow(0 0 20px rgba(0,0,0,.5));
     }
 
     /* ── Cards ── */
@@ -272,6 +275,13 @@
       width:60px; height:1px; margin:0 auto;
       background:linear-gradient(90deg,transparent,var(--copper),transparent);
     }
+    @keyframes splashStar {
+      0%,100%{ opacity:.25; transform:scale(.75); }
+      50%    { opacity:1;   transform:scale(1.25); }
+    }
+    .splash-star { animation:splashStar 2.2s ease-in-out infinite; display:inline-block; }
+    .splash-star:nth-child(2){ animation-delay:.4s; }
+    .splash-star:nth-child(3){ animation-delay:.8s; }
 
     /* ── Music button ── */
     #music-btn {
@@ -296,8 +306,10 @@
   <!-- SPLASH                              -->
   <!-- ════════════════════════════════════ -->
   <div id="splash">
-    <div class="mickey-icon mb-7">
-      <div class="m-ear"></div><div class="m-head"></div><div class="m-ear"></div>
+    <div class="flex gap-4 mb-7" style="align-items:center;justify-content:center;">
+      <span class="splash-star" style="font-size:1.1rem;color:var(--fuschia);">✦</span>
+      <span class="splash-star" style="font-size:.7rem;color:var(--copper);">✦</span>
+      <span class="splash-star" style="font-size:1.1rem;color:var(--olive);">✦</span>
     </div>
 
     <div style="width:140px;height:140px;border-radius:50%;overflow:hidden;
@@ -392,8 +404,10 @@
 
     <!-- Text overlay -->
     <div id="hero-content" class="fade-up delay-1">
-      <p style="font-family:'Cormorant Garamond',serif;font-size:clamp(.9rem,3.5vw,1.1rem);
-                font-weight:300;font-style:italic;letter-spacing:.16em;color:rgba(255,220,160,.9);margin-bottom:.8rem;">
+      <p style="font-family:'Cormorant Garamond',serif;font-size:clamp(1rem,4vw,1.3rem);
+                font-weight:400;font-style:italic;letter-spacing:.2em;
+                color:rgba(255,235,180,1);margin-bottom:.8rem;
+                filter:drop-shadow(0 1px 6px rgba(0,0,0,.6));">
         nos casamos
       </p>
       <h1 class="name-embossed fade-up delay-2"
@@ -743,8 +757,14 @@
         <line x1="12" y1="10" x2="12" y2="22" stroke="#4A5D23" stroke-width="1" opacity=".5"/>
       </svg>
     </div>
-    <p style="font-family:'Cormorant Garamond',serif;font-size:1.6rem;font-weight:300;color:var(--ink);letter-spacing:.04em;">
-      Con amor,<br/><em class="name-embossed">Clarisa &amp; Ramiro</em>
+    <p style="font-family:'Cormorant Garamond',serif;font-size:2rem;font-weight:300;color:var(--ink);letter-spacing:.04em;">
+      Con amor,<br/>
+      <em style="font-size:2.4rem;font-weight:400;font-style:italic;
+                 background:linear-gradient(135deg,#8B4A10 0%,#C07850 30%,#6B3008 55%,#A06030 75%,#8B4A10 100%);
+                 -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+                 filter:drop-shadow(0 1px 2px rgba(80,30,0,.2));">
+        Clarisa &amp; Ramiro
+      </em>
     </p>
     <p style="font-family:'Jost',sans-serif;font-size:.65rem;letter-spacing:.2em;text-transform:uppercase;color:var(--olive);margin-top:16px;">
       27 · 11 · 2026
